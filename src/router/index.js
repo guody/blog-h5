@@ -19,6 +19,6 @@ export default new Router({
               resolve(require('../view/home.vue')),'home';
           });
       }
-    }
+    }  
   ]
 })

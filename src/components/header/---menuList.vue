@@ -1,5 +1,5 @@
 <template>
-    <div class="header-box slideDown">
+    <el-header class="header-box slideDown">
         <nav>
             <div class="logo">郭小迪的博客</div>
             <el-menu
@@ -20,7 +20,7 @@
             </el-menu>
             <serach-box></serach-box>
         </nav>
-    </div>
+    </el-header>
 </template>
 <script>
 import serachBox from './search'

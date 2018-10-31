@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
+    <div id="app">
       <router-view/>
-  </div>
+    </div>  
 </template>
 
 <script>
@@ -11,5 +11,9 @@ export default {
 </script>
 
 <style>
-  @import './assets/scss/common/reset.scss';
+  @import './assets/scss/reset.scss';
+  @import './assets/scss/tinyScreen.scss' screen and (max-device-width: 1000px);
+  @import './assets/scss/tinyScreen.scss' screen and (max-device-width: 768px);
+
+
 </style>

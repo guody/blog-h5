@@ -30,9 +30,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .search-box{
-    position: absolute;
-    top:0;
-    right: 0;
+    width: 40px;
     height: 60px;
     line-height: 60px;
     .search-bar{
@@ -60,7 +58,7 @@ export default {
         border-radius: 3px;
         outline: none;
         border: none;
-        font-size: 14px;
+        font-size: 1.4rem;
         color: #333;
         padding-left:10px;
     }

@@ -1,6 +1,6 @@
 <template>
-   <section class="home-box">
-       <top-bar></top-bar>
+   <section>
+       <menu-list></menu-list>
        <section class="main-box">
            <aside>
                 <el-card class="box-card">
@@ -40,7 +40,7 @@
    </section>
 </template>
 <script>
-import topBar from "../components/header/topBar"
+import menuList from "../components/header/menuList"
 import footBar from "../components/footer/footBar"
 export default {
     name:'home',
@@ -50,15 +50,12 @@ export default {
         }
     },
     components:{
-        topBar,
+        menuList,
         footBar
     }
 }
 </script>
 <style lang="scss" scoped>
-.home-box{
-    width: 100%;
-}
 .main-box{
     margin: 90px auto 0;   
     width: 1000px;
