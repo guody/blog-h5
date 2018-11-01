@@ -2,7 +2,7 @@
    <section class="home-box">
        <top-bar></top-bar>
        <section class="main-box">
-           <aside>
+           <aside class="hidden-sm-and-down">
                 <el-card class="box-card">
                     <h3>博客介绍</h3>
                 </el-card>
@@ -56,27 +56,37 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.home-box{
-    width: 100%;
-}
 .main-box{
-    margin: 90px auto 0;   
-    width: 1000px;
+    margin: 80px auto 0;   
+    max-width: 1000px;
+    width: 90%;
     overflow: hidden;
-    position: relative;
     aside{
         float: right;
         width: 30%;
         .box-card{
+            border-radius: 8px;
             min-height: 200px;
             width: 100%;
             margin-bottom: 25px;
         }
     }
+    @media screen and (max-width: 991px) {
+        main{
+            width: 100%;
+        }
+    } 
+    @media screen and (min-width: 992px) {
+        main{
+            width: 68%;
+        }
+    } 
     main{
+        overflow: hidden;
         float: left;
-        width: 68%;
+        // width: 68%;
         .article-item{
+            border-radius: 5px;
             padding: 15px;
             margin-bottom: 20px;
             background: #FFF;
@@ -131,6 +141,11 @@ export default {
                         color: #333;
                     }
                 }
+                @media screen and (max-width: 480px) {
+                    .lmname{
+                        display: none;
+                    }
+                }                 
                 .lmname{
                     background: url('../assets/imgs/icons/auicon.jpg') no-repeat top -23px left;
                 }
@@ -150,8 +165,8 @@ export default {
             }
         }        
     }
-
 }
+
 </style>
 
 
