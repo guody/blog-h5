@@ -6,15 +6,19 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import 'element-ui/lib/theme-chalk/display.css';
 
+import eventBus from './libs/eventBus'
 import router from './router';
 
 Vue.config.productionTip = false
 Vue.use(ElementUI);
 
+// Vue.prototype.eventBus = eventBus
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  data:{eventBus},
   components: { App },
   template: '<App/>'
 })

@@ -36,11 +36,13 @@
                </div>
            </main>
        </section>
+       <aside-menu></aside-menu>
        <foot-bar></foot-bar>
    </section>
 </template>
 <script>
 import topBar from "../components/header/topBar"
+import asideMenu from "../components/header/asideMenu"
 import footBar from "../components/footer/footBar"
 export default {
     name:'home',
@@ -51,7 +53,11 @@ export default {
     },
     components:{
         topBar,
+        asideMenu,
         footBar
+    },
+    methods:{
+
     }
 }
 </script>
@@ -59,7 +65,7 @@ export default {
 .main-box{
     margin: 80px auto 0;   
     max-width: 1000px;
-    width: 90%;
+    width: 92%;
     overflow: hidden;
     aside{
         float: right;

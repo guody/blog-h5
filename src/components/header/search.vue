@@ -24,13 +24,13 @@ export default {
                 console.log('查询。。。')
             }
         }
-
     }
 }
 </script>
 <style lang="scss" scoped>
 .search-box{
-    width: 40px;
+    right: 5px;
+    width: 60px;
     height: 60px;
     line-height: 60px;
     .search-bar{
@@ -64,7 +64,7 @@ export default {
     }
     .search-icon{
         z-index: 101;
-        width: 40px;
+        width: 60px;
         height: 60px;
         display: block;
         position: absolute;

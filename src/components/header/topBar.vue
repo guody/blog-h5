@@ -1,7 +1,7 @@
 <template>
     <div class="head-box slideDown">
         <nav>
-            <div class="menu-icon hidden-md-and-up"></div>
+            <div @click="showMenu" class="menu-icon hidden-md-and-up"></div>
             <div class="logo"><a href="">郭小迪的博客</a></div>
             <ul class="menu-list hidden-sm-and-down">
                 <li>首页</li>
@@ -21,14 +21,18 @@ import serachBox from './search'
 export default {
     data(){
         return {
-
+            showAsideMenu:false   //是否显示侧栏菜单
         }
     },
     components:{
         serachBox
     },
     methods:{
-   
+        //移动端点击menu-icon显示侧栏菜单
+        showMenu(){
+            this.showAsideMenu = true;
+            this.$root.eventBus.$emit('showMobileMenu',this.showAsideMenu)
+        }
     }    
 }
 </script>
@@ -56,11 +60,14 @@ export default {
     }
     nav{
         max-width: 1000px;
-        width: 90%;
+        width: 100%;
         height: 60px;
         margin: auto;
+        position: relative;
         .menu-icon{
-            float: left;
+            position: absolute;
+            top:0;
+            left: 4%;
             width: 30px;
             height: 30px;
             background: url('../../assets/imgs/icons/menu-icon.png');
@@ -109,7 +116,13 @@ export default {
         }  
         .search{
             float: right;
-        }      
+        }
+        
+        .aside-menu-list{
+            width: 100%;
+            overflow: auto;
+            background: #666;
+        }
     }
 
 }
