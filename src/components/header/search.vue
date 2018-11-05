@@ -3,7 +3,7 @@
         <div :class="[showSearch?'search_open':'','search-bar']">
             <input v-show='showSearch' type="text" class="input" placeholder="想搜点什么呢.." name="keyboard">
             <p class="search-icon" @click="searchEvent" title="搜索">
-                <i></i>  
+                <i></i>
             </p>            
         </div>
     </div>    
@@ -64,7 +64,7 @@ export default {
     }
     .search-icon{
         z-index: 101;
-        width: 60px;
+        width: 40px;
         height: 60px;
         display: block;
         position: absolute;

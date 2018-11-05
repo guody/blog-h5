@@ -1,5 +1,5 @@
 <template>
-   <section class="home-box">
+   <section :class="[showMenu?'slide-body':'','home-box']">
        <top-bar></top-bar>
        <section class="main-box">
            <aside class="hidden-sm-and-down">
@@ -48,6 +48,7 @@ export default {
     name:'home',
     data(){
         return {
+            showMenu:false,
             blogList:[1,2,3,4,5,6,7,8,9]
         }
     },
@@ -56,17 +57,41 @@ export default {
         asideMenu,
         footBar
     },
+    mounted() {
+        this.getMenuShow()
+        this.getMenuClose()
+    },
     methods:{
-
+        // 监听打开移动端菜单
+        getMenuShow(){
+            const that = this;
+            this.$root.eventBus.$on('showMobileMenu',function(val) {
+                that.showMenu = val
+            })
+        },
+        // 监听关闭移动端菜单
+        getMenuClose(){
+            const that = this;
+            this.$root.eventBus.$on('closeMobileMenu',function(val) {
+                that.showMenu = val
+            })            
+        }
     }
 }
 </script>
 <style lang="scss" scoped>
+.slide-body{
+    margin-left: 270px;
+    width: 100%;
+    position: fixed;
+    transition: margin-left .3s ease-in-out;
+}
 .main-box{
-    margin: 80px auto 0;   
+    margin:80px auto 0;
     max-width: 1000px;
     width: 92%;
     overflow: hidden;
+    box-sizing:border-box;
     aside{
         float: right;
         width: 30%;

@@ -1,21 +1,57 @@
 <template>
-    <div @click="closeMenu" :class="['aside-menu-box',!showMenu?'menu-active':'']">
-        <div class="menu-bar-show menu-bar">
-            <div class="menu-panel">
-                <h3>菜单</h3>
-                <hr>
-                <ul class="aside-menu-list">
-                    <li>首页</li>
-                    <li>web</li>
-                    <li>nodejs</li>
-                    <li>数据库</li>
-                    <li>TypeScript</li>
-                    <li>工具</li>
-                    <li>其他</li>                    
-                </ul>
-            </div>
+<transition name='fade'>
+    <div @click.self="closeMenu" :class="['aside-menu-box']" v-if="showMenu">
+        <div :class="['menu-bar']">
+            <h4>目录</h4>
+            <el-col :span="24">
+                <el-menu
+                default-active="2"
+                class="el-menu-vertical"
+                @open="handleOpen"
+                @close="handleClose"
+                background-color="#45494c"
+                text-color="#fff"
+                active-text-color="#ffd04b">
+                <el-submenu index="1">
+                    <template slot="title">
+                    <span>导航一</span>
+                    </template>
+                    <el-menu-item-group>
+                    <template slot="title">分组一</template>
+                    <el-menu-item index="1-1">选项1</el-menu-item>
+                    <el-menu-item index="1-2">选项2</el-menu-item>
+                    </el-menu-item-group>
+                    <el-menu-item-group title="分组2">
+                    <el-menu-item index="1-3">选项3</el-menu-item>
+                    </el-menu-item-group>
+                    <el-submenu index="1-4">
+                    <template slot="title">选项4</template>
+                    <el-menu-item index="1-4-1">选项1</el-menu-item>
+                    </el-submenu>
+                </el-submenu>
+                <el-menu-item index="2">
+                    <span slot="title">导航二</span>
+                </el-menu-item>
+                <el-menu-item index="3">
+                    <span slot="title">导航三</span>
+                </el-menu-item>
+                <el-menu-item index="4">
+                    <span slot="title">导航四</span>
+                </el-menu-item>
+                <el-menu-item index="5">
+                    <span slot="title">导航二</span>
+                </el-menu-item>
+                <el-menu-item index="6">
+                    <span slot="title">导航三</span>
+                </el-menu-item>
+                <el-menu-item index="7">
+                    <span slot="title">导航四</span>
+                </el-menu-item>                
+                </el-menu>
+            </el-col>
         </div>
-    </div>  
+    </div> 
+</transition>
 </template>
 <script>
 export default {
@@ -39,16 +75,19 @@ export default {
         // 关闭侧栏菜单
         closeMenu(){
             this.showMenu = false;
+            this.$root.eventBus.$emit('closeMobileMenu',this.showMenu)
+        },
+        handleOpen(key, keyPath) {
+            console.log(key, keyPath);
+        },
+        handleClose(key, keyPath) {
+            console.log(key, keyPath);
         }
     }
 }
 </script>
 <style lang="scss" scoped>
-.menu-active{
-    display: none;
-}
 .aside-menu-box{
-    // display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -57,11 +96,7 @@ export default {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background: rgba(0,0,0,0.1);
-    .menu-bar-show{
-        -webkit-transform: translateX(0);
-        transform: translateX(0);
-    }
+    background: rgba(0,0,0,0.3);  
     .menu-bar{
         position: fixed;
         top: 0;
@@ -70,39 +105,48 @@ export default {
         z-index: 1002;
         width: 270px;
         max-width: 100%;
-        background: blue;
+        height: 100%;
+        background: #25292d;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
-        transform: translateX(-100%);
-        -webkit-transition: -webkit-transform .3s ease-in-out;
-        transition: transform .3s ease-in-out;        
-    }
-    .menu-panel{
-        margin: 20px 15px;
-        color: #fff;
-        text-shadow: 0 1px 0 rgba(0,0,0,0.5);
-        text-shadow: none;  
-        h3{
-            padding: 10px 15px;
-            text-transform: uppercase;
-            font-weight: bold;
-            font-size: 12px;
+        h4{
+            height: 60px;
+            width: 270px;
+            max-width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            line-height: 60px;
+            background: #45494c;
+            color: #fff;
+            box-sizing: border-box;
+            padding:0 20px;
             font-size: 1.6rem;
-        }
-        .aside-menu-list{
-            margin-top: 15px;
-            li{
-                font-size: 1.5rem;
-                display: list-item;
-                padding: 8px 15px;
-            }
-            li.active{
-                background: #666;
-            }
+            border-bottom:1px solid #4e5761;
+            z-index: 1002;
         }
     }
-}
 
+}
+.el-col-24{
+    box-sizing: border-box;
+    padding-top: 60px;
+}
+.el-col-24,.el-menu{
+    height: 100%;
+}
+.el-menu{
+    border: 0;
+}
+.fade-enter-active {
+    transition: opacity 0s
+}
+.fade-leave-active{
+    transition: opacity 2s
+}
+.fade-enter, .fade-leave-to{
+    opacity: 0;
+}
 </style>
 
 

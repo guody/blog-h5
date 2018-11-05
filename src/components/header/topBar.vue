@@ -52,7 +52,7 @@ export default {
     z-index: 999;
     top: 0;
     width: 100%;
-    background: #0b2731;
+    background: #0593d3;
     @media screen and (max-width: 991px) {
         nav{
             text-align: center;
@@ -91,11 +91,12 @@ export default {
                 height: 60px;
                 line-height: 60px;
                 padding: 0 20px;
-                color: #5bd0fa;
+                color: #0593d3;
+                color: #fff;
             
             }
             li:hover{
-                color: #fff;
+                background: #1d5178;
             }
         }
         @media screen and (max-width: 991px) {
@@ -111,7 +112,7 @@ export default {
             line-height: 60px;
             font-weight: bold;
             a{
-                color: #5bd0fa;
+                color: #fff;
             }
         }  
         .search{
