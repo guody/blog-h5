@@ -78,7 +78,7 @@ export default {
             this.showMenu = false;
             this.$root.eventBus.$emit('closeMobileMenu',this.showMenu)
         },
-        // 过度状态钩子，当侧栏菜单消失时，蒙层消失
+        // 过渡状态钩子，当侧栏菜单消失时，蒙层消失
         afterLeave: function (el) {
             this.showMask = false;
         },
@@ -101,7 +101,7 @@ export default {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background: rgba(0,0,0,0.3);  
+    background: rgba(0,0,0,0.2);  
     .menu-bar{
         position: fixed;
         top: 0;

@@ -49,6 +49,7 @@ export default {
 .head-box{
     padding: 0;
     position: fixed;
+    -webkit-transform: translateZ(0);
     z-index: 999;
     top: 0;
     width: 100%;
