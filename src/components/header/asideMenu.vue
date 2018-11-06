@@ -1,6 +1,6 @@
 <template>
-    <div @click.self="closeMenu" :class="['aside-menu-box']" v-if="showMenu">
-        <transition name='fade'>
+    <div @click.self="closeMenu" :class="['aside-menu-box']" v-show="showMask">
+        <transition name='fade' v-on:after-leave="afterLeave">
             <div class="menu-bar" v-if="showMenu">
                 <h4>目录</h4>
                 <el-col :span="24">
@@ -57,6 +57,7 @@
 export default {
     data(){
         return{
+            showMask:false,
             showMenu:false
         }
     },
@@ -68,7 +69,7 @@ export default {
         getMenuShow(){
             const that = this;
             this.$root.eventBus.$on('showMobileMenu',function(val) {
-                // console.log(val)
+                that.showMask = val
                 that.showMenu = val
             })
         },
@@ -76,6 +77,10 @@ export default {
         closeMenu(){
             this.showMenu = false;
             this.$root.eventBus.$emit('closeMobileMenu',this.showMenu)
+        },
+        // 过度状态钩子，当侧栏菜单消失时，蒙层消失
+        afterLeave: function (el) {
+            this.showMask = false;
         },
         handleOpen(key, keyPath) {
             console.log(key, keyPath);
@@ -141,11 +146,13 @@ export default {
     border: 0;
     padding-left:25px;
 }
-.fade-enter-active, .fade-leave-active{
-    transition: translateX(0) 2s
+
+.fade-enter-active, .fade-leave-active {
+  transform: translateX(0%);
+  transition: transform .3s ease-in-out;
 }
-.fade-enter, .fade-leave-to{
-    transition: translateX(-100%) 2s
+.fade-enter, .fade-leave-to {
+ transform: translateX(-100%);
 }
 </style>
 

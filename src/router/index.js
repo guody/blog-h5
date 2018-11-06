@@ -19,6 +19,18 @@ export default new Router({
               resolve(require('../view/home.vue')),'home';
           });
       }
-    }  
+    },
+    {
+      /**
+       * 文章详情
+       */
+      path: '/article',
+      name: 'article',
+      component: resolve => {
+          require.ensure([], () => {
+              resolve(require('../view/article.vue')),'article';
+          });
+      }
+    }    
   ]
 })

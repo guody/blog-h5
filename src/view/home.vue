@@ -80,11 +80,14 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.home-box{
+    width: 100%;
+    margin-left: 0px;
+    transition: margin-left .3s ease-in-out;
+}
 .slide-body{
     margin-left: 270px;
-    width: 100%;
     position: fixed;
-    transition: margin-left .3s ease-in-out;
 }
 .main-box{
     margin:80px auto 0;
