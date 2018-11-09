@@ -1,6 +1,6 @@
 <template>
    <section :class="[showMenu?'slide-body':'','home-box']">
-       <top-bar></top-bar>
+       <top-bar :menuList="menuList"></top-bar>
        <section class="main-box">
            <aside class="hidden-sm-and-down">
                 <el-card class="box-card">
@@ -17,7 +17,7 @@
                 </el-card>                                                 
            </aside>
            <main>
-               <div class="article-item" v-for="item in blogList">
+               <div class="article-item" v-for="(item,index) in blogList" :key="index">
                    <h3 class="artile-title">
                        <a href="" target="_blank">两只蜗牛艰难又浪漫的一吻</a>
                    </h3>
@@ -36,7 +36,7 @@
                </div>
            </main>
        </section>
-       <aside-menu></aside-menu>
+       <aside-menu :menuList="menuList"></aside-menu>
        <foot-bar></foot-bar>
    </section>
 </template>
@@ -49,6 +49,7 @@ export default {
     data(){
         return {
             showMenu:false,
+            menuList:[],
             blogList:[1,2,3,4,5,6,7,8,9]
         }
     },
@@ -58,10 +59,18 @@ export default {
         footBar
     },
     mounted() {
+        this.getMenuList()
         this.getMenuShow()
         this.getMenuClose()
     },
     methods:{
+        // 获取菜单列表
+       async getMenuList(){
+          var menuData = await $api.findAllMenu();
+          if(menuData.code=='0' && menuData.data){
+              this.menuList = menuData.data
+          }
+        },
         // 监听打开移动端菜单
         getMenuShow(){
             const that = this;

@@ -5,14 +5,16 @@ import App from './App'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import 'element-ui/lib/theme-chalk/display.css';
+import VueWechatTitle from 'vue-wechat-title';
 
+import api from './libs/api'
 import eventBus from './libs/eventBus'
 import router from './router';
 
 Vue.config.productionTip = false
 Vue.use(ElementUI);
-
-// Vue.prototype.eventBus = eventBus
+Vue.use(VueWechatTitle);   //动态设置title
+window.$api = api;
 
 /* eslint-disable no-new */
 new Vue({

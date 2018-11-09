@@ -18,6 +18,9 @@ export default new Router({
           require.ensure([], () => {
               resolve(require('../view/home.vue')),'home';
           });
+      },
+      meta: {
+        title: '首页'
       }
     },
     {
@@ -30,6 +33,9 @@ export default new Router({
           require.ensure([], () => {
               resolve(require('../view/article.vue')),'article';
           });
+      },
+      meta: {
+        title: '文章'
       }
     }    
   ]

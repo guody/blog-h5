@@ -4,13 +4,7 @@
             <div @click="showMenu" class="menu-icon hidden-md-and-up"></div>
             <div class="logo"><a href="">郭小迪的博客</a></div>
             <ul class="menu-list hidden-sm-and-down">
-                <li>首页</li>
-                <li>web</li>
-                <li>nodejs</li>
-                <li>数据库</li>
-                <li>TypeScript</li>
-                <li>工具</li>
-                <li>其他</li>
+                <li v-for='(item,index) in menuList' :key="index">{{item.menuName}}</li>
             </ul>
             <serach-box class="search hidden-xs-only"></serach-box>       
         </nav>
@@ -27,6 +21,7 @@ export default {
     components:{
         serachBox
     },
+    props:['menuList'],
     methods:{
         //移动端点击menu-icon显示侧栏菜单
         showMenu(){
