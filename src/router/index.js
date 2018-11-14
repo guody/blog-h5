@@ -37,6 +37,21 @@ export default new Router({
       meta: {
         title: '文章'
       }
+    },
+    {
+      /**
+       * 文章详情
+       */
+      path: '/editArticle',
+      name: 'editArticle',
+      component: resolve => {
+          require.ensure([], () => {
+              resolve(require('../view/editArticle.vue')),'editArticle';
+          });
+      },
+      meta: {
+        title: '编辑文章'
+      }
     }    
   ]
 })
