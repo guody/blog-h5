@@ -1,0 +1,162 @@
+.article-box{
+    width: 100%;
+    margin-left: 0;
+    transition: margin-left .3s ease-in-out;
+}
+.slide-body{
+    margin-left: 270px;
+    position: fixed;
+}
+.main-box{
+    margin:80px auto 20px;
+    max-width: 1000px;
+    width: 92%;
+    overflow: hidden;
+    box-sizing:border-box;
+    @media screen and (max-width: 991px) {
+        main{
+            width: 100%;
+        }
+    } 
+    @media screen and (min-width: 992px) {
+        main{
+            width: 68%;
+        }
+    }
+    main{
+        overflow: hidden;
+        float: left;
+        background: #fff;
+        box-sizing: border-box;
+        padding:25px;
+        article{
+            .article-title{
+                font-size: 2.4rem;
+                font-weight: 600;
+                color: #333;
+                padding-bottom: 30px;
+                margin:0;
+            }
+            h3,p,ol{
+                margin-bottom: 20px;
+                font-size: 1.6rem;
+                line-height: 2.2rem;
+                color: #2f2f2f;
+            }
+            h3{
+                font-weight: 600;
+                font-size: 2rem;
+            }
+            .brief{
+                padding: 20px;
+                margin: 25px 0;
+                background-color: #f7f7f7;
+                border-left: 6px solid #b4b4b4;
+                word-break: break-word!important;
+                word-break: break-all;
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 30px;
+                p{margin:0;font-size: #2f2f2f;}         
+            }                      
+        }
+        .praise-box{
+            padding: 20px;
+            cursor: pointer;
+            .praise:hover{
+               opacity: 0.9;
+            }
+            .praise{
+                width: 120px;
+                height: 26px;
+                margin: auto;
+                border:1px solid #E2523A;
+                color: #E2523A;
+                border-radius: 30px;
+                padding: 12px 20px;
+                line-height: 26px;
+                span{
+                    font-size: 1.5rem;
+                    display: inline-block;
+                    height: 26px;
+                    line-height: 24px;
+                }
+                .like-num{
+                    padding-left:10px;
+                    border-left:2px solid rgba(236, 97, 73, 0.4);
+                    margin-left: 10px;
+                }
+                .like-icon{
+                    vertical-align: middle;
+                    display: inline-block;
+                    background: #fff url('../assets/imgs/like-out.png') no-repeat center;
+                    height: 20px;
+                    width: 20px;
+                    background-size:contain;
+                    margin-right: 10px;
+                }
+                .like-active{
+                    border-left:1px solid #fff;
+                }
+                .like-in{
+                    background: url('../assets/imgs/like-in.png') no-repeat center;
+                    background-size:contain;
+                }                             
+            }
+            .praise-active{
+                color:#fff;
+                background: #E2523A;
+            }         
+
+        }
+        .near-article{
+            margin-top: 20px;
+            font-size: 1.6rem;
+            padding: 20px 0;
+            p{
+                padding: 4px 10px;
+            }
+            a:hover{
+                text-decoration: underline;
+                color: #2f2f2f;
+            }
+        }
+        .comment-box{
+            margin-top:30px;
+            padding: 20px 0;
+            .comm-num{
+                font-size: 1.6rem;
+                padding:0 10px;
+            }
+            .comm-title{
+                .tit-left{
+                    font-size: 1.6rem;
+                    color: #999;
+                }             
+            }
+            .input-comm{
+                margin:30px;
+                
+                p{
+                    margin-top:10px; 
+                }
+                .el-input{
+                    width: 50%;
+                }            
+                .submmit-box{
+                    text-align: right;
+                }
+            }
+            .comm-num{
+                font-size: 1.8rem;
+                font-family: '黑体';
+                font-weight: 600;
+                padding: 20px 0;
+                border-bottom:1px solid #eee;
+            }
+        }       
+
+
+    }   
+     
+}

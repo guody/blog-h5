@@ -22,6 +22,40 @@
                     </ol>
                     <p>为了建立一个WebSocket连接，浏览器首先要向服务器发起一个HTTP请求，这个请求和通常的HTTP请求不同，包含了一些附加头信息，其中附加头信息Upgrade: WebSocket表明这是一个申请协议升级的HTTP请求。服务端解析这些头信息，然后产生应答信息返回给客户端，客户端和服务端的WebSocket连接就建立起来了。双方就可以通过这个连接通道自由的传递信息，并且这个连接会持续直到客户端或者服务端的某一方主动关闭连接。</p>
                 </article>
+                <div class="praise-box" >
+                    <div :class="[likeFlag?'praise-active':'','praise']"  @click="likeArticle">
+                        <span><i :class="[likeFlag?'like-in':'','like-icon']"></i>喜欢</span>
+                        <span :class="[likeFlag?'like-active':'','like-num']"><b>56</b></span>
+                    </div>
+                </div>
+                <div class="near-article">
+                    <p><span>上一篇：</span><a href="">关于web性能优化</a></p>
+                    <p><span>下一篇：</span><a href="">node之koa2中间件原理</a></p>
+                </div>
+                <div class="comment-box">
+                    <div class="comm-title">
+                        <div class="tit-left">说点什么吧 ...</div>
+                    </div>
+                    <div class="input-comm">
+                        <p><el-input v-model="input" class="text-input" placeholder="请输入用户名"></el-input></p>
+                        <p><el-input v-model="input" class="text-input" placeholder="请输入邮箱"></el-input></p>
+                        <p><el-input
+                            type="textarea"
+                            :autosize="{ minRows: 3, maxRows: 5}"
+                            placeholder="写下你的评论"
+                            v-model="textarea3">
+                        </el-input></p>
+                       <p class="submmit-box"><el-button type="primary">提交</el-button></p> 
+                    </div>                   
+                    <div class="comm-num">共有<span>10</span>条评论</div>
+                    <div class="comment-box">
+                        <ul class="comment-list">
+                            <li>
+                                
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </main>
          </section>
         <aside-menu :menuList="menuList"></aside-menu>
@@ -38,6 +72,7 @@ export default {
     data(){
         return {
             showMenu:false,
+            likeFlag:false,
             menuList:[]
         }
     },
@@ -72,76 +107,15 @@ export default {
             this.$root.eventBus.$on('closeMobileMenu',function(val) {
                 that.showMenu = val
             })            
+        },
+        likeArticle(){
+            this.likeFlag = !this.likeFlag;
         }
     }
 }
 </script>
 <style lang="scss" scoped>
-.article-box{
-    width: 100%;
-    margin-left: 0px;
-    transition: margin-left .3s ease-in-out;
-}
-.slide-body{
-    margin-left: 270px;
-    position: fixed;
-}
-.main-box{
-    margin:80px auto 0;
-    max-width: 1000px;
-    width: 92%;
-    overflow: hidden;
-    box-sizing:border-box;
-    @media screen and (max-width: 991px) {
-        main{
-            width: 100%;
-        }
-    } 
-    @media screen and (min-width: 992px) {
-        main{
-            width: 68%;
-        }
-    }
-    main{
-        overflow: hidden;
-        float: left;
-        background: #fff;
-        box-sizing: border-box;
-        padding:25px;
-        h3,p,ol{
-            margin-bottom: 20px;
-            font-size: 1.6rem;
-            line-height: 2.2rem;
-            font-size: #2f2f2f;
-        }
-        h3{
-            font-weight: 600;
-            font-size: 2rem;
-        }
-        article{
-            .article-title{
-                font-size: 2.4rem;
-                font-weight: 600;
-                color: #333;
-                padding-bottom: 30px;
-            }
-        }
-        .brief{
-            padding: 20px;
-            margin: 25px 0;
-            background-color: #f7f7f7;
-            border-left: 6px solid #b4b4b4;
-            word-break: break-word!important;
-            word-break: break-all;
-            font-size: 16px;
-            font-weight: 400;
-            line-height: 30px;
-            p{margin:0;font-size: #2f2f2f;}         
-        }
-    }   
-     
-}
-
+ @import "../assets/scss/article.scss";
 </style>
 
 
