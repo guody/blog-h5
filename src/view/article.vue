@@ -47,15 +47,34 @@
                         </el-input></p>
                        <p class="submmit-box"><el-button type="primary">提交</el-button></p> 
                     </div>                   
-                    <div class="comm-num">共有<span>10</span>条评论</div>
-                    <div class="comment-box">
-                        <ul class="comment-list">
-                            <li>
-                                
-                            </li>
-                        </ul>
-                    </div>
                 </div>
+                <div class="comm-detail-box">
+                    <div class="comm-num">共有<span>2</span>条评论</div>
+                    <ul class="comment-list">
+                        <li>
+                            <div class="comm-head">
+                                <div class="uname">芭拉雷小魔仙</div>
+                                <div class="comm-info">
+                                    <span>1</span>楼 · <span>2018-11-14 18:36</span>
+                                </div>
+                            </div>
+                            <div class="comment-text">
+                                你好，socketio 性能怎么样？ 适合于大型即时通信开发吗？
+                            </div>
+                        </li>
+                        <li>
+                            <div class="comm-head">
+                                <div class="uname">芭拉雷小魔仙</div>
+                                <div class="comm-info">
+                                    <span>2</span>楼 · <span>2018-11-14 18:36</span>
+                                </div>
+                            </div>
+                            <div class="comment-text">
+                                你好，socketio 性能怎么样？ 适合于大型即时通信开发吗？
+                            </div>
+                        </li>                        
+                    </ul>
+                </div>                
             </main>
          </section>
         <aside-menu :menuList="menuList"></aside-menu>
