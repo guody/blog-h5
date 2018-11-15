@@ -19,7 +19,8 @@ export default {
     data(){
         return {
             Config:{
-                height:0.7*window.innerHeight  // 默认值
+                theme: 'modern',
+                // height:0.76*window.innerHeight  // 默认值
             }
         }
     },
@@ -27,13 +28,11 @@ export default {
         mceEditor
     },
     mounted () {
-        // this.Config.height = `${0.822*window.innerHeight}px`;
-        const that = this
-        window.onresize = () => {
-            that.Config.height = `${0.822*window.innerHeight}`
-            // console.log(that.Config.height)
-        }
-        
+        // const that = this
+        // window.onresize = () => {
+        //     that.Config.height = window.innerHeight
+        //     console.log(that.Config.height)
+        // }
     }    
 
 }

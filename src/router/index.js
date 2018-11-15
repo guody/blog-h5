@@ -40,7 +40,7 @@ export default new Router({
     },
     {
       /**
-       * 文章详情
+       * 编辑文章
        */
       path: '/editArticle',
       name: 'editArticle',
@@ -52,6 +52,21 @@ export default new Router({
       meta: {
         title: '编辑文章'
       }
-    }    
+    },
+    {
+      /**
+       * 注册
+       */
+      path: '/regist',
+      name: 'regist',
+      component: resolve => {
+          require.ensure([], () => {
+              resolve(require('../view/regist.vue')),'regist';
+          });
+      },
+      meta: {
+        title: '注册'
+      }
+    }     
   ]
 })

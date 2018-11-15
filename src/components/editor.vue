@@ -129,6 +129,11 @@
         }
       }
     },
+    watch:{
+      config(){
+        // console.log(this.config.height)
+      }
+    },
     props: {
       value: {
         default: '',
@@ -161,7 +166,6 @@
       }
     },
     mounted () {
-      console.log(this.config.height)
       this.init()
     },
     beforeDestroy () {
