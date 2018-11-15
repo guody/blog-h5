@@ -67,6 +67,21 @@ export default new Router({
       meta: {
         title: '注册'
       }
-    }     
+    },
+    {
+      /**
+       * 登录
+       */
+      path: '/login',
+      name: 'login',
+      component: resolve => {
+          require.ensure([], () => {
+              resolve(require('../view/login.vue')),'login';
+          });
+      },
+      meta: {
+        title: '登录'
+      }
+    }       
   ]
 })
