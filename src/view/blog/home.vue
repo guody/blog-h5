@@ -18,11 +18,11 @@
    </section>
 </template>
 <script>
-import topBar from "../components/header/topBar"
-import asideMenu from "../components/header/asideMenu"
-import asideCon from '../components/asideCon'
-import blogInfo from '../components/blogInfo'
-import footBar from "../components/footer/footBar"
+import topBar from "@/components/header/topBar"
+import asideMenu from "@/components/header/asideMenu"
+import asideCon from '@/components/asideCon'
+import blogInfo from '@/components/blogInfo'
+import footBar from "@/components/footer/footBar"
 export default {
     name:'home',
     data(){

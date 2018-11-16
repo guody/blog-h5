@@ -16,7 +16,7 @@ export default new Router({
       name: 'home',
       component: resolve => {
           require.ensure([], () => {
-              resolve(require('../view/home.vue')),'home';
+              resolve(require('../view/blog/home.vue')),'home';
           });
       },
       meta: {
@@ -31,7 +31,7 @@ export default new Router({
       name: 'article',
       component: resolve => {
           require.ensure([], () => {
-              resolve(require('../view/article.vue')),'article';
+              resolve(require('../view/blog/article.vue')),'article';
           });
       },
       meta: {
@@ -46,7 +46,7 @@ export default new Router({
       name: 'editArticle',
       component: resolve => {
           require.ensure([], () => {
-              resolve(require('../view/editArticle.vue')),'editArticle';
+              resolve(require('../view/blog/editArticle.vue')),'editArticle';
           });
       },
       meta: {
@@ -61,7 +61,7 @@ export default new Router({
       name: 'regist',
       component: resolve => {
           require.ensure([], () => {
-              resolve(require('../view/regist.vue')),'regist';
+              resolve(require('../view/admin/regist.vue')),'regist';
           });
       },
       meta: {
@@ -76,7 +76,7 @@ export default new Router({
       name: 'login',
       component: resolve => {
           require.ensure([], () => {
-              resolve(require('../view/login.vue')),'login';
+              resolve(require('../view/admin/login.vue')),'login';
           });
       },
       meta: {

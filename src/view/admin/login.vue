@@ -1,18 +1,15 @@
 <template>
-    <div class="regist">
-        <div class="regist-box">
-            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" hide-required-asterisk label-width="70px" class="regist-ruleForm">
-                <el-form-item label="用户名" prop="username">
-                    <el-input v-model="ruleForm.name"></el-input>
+    <div class="login">
+        <div class="login-box">
+            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" hide-required-asterisk  class="login-ruleForm">
+                <el-form-item prop="username">
+                    <el-input v-model="ruleForm.username" placeholder="用户名"></el-input>
                 </el-form-item>
-                <el-form-item label="密码" prop="password">
-                    <el-input v-model="ruleForm.name"></el-input>
-                </el-form-item>
-                <el-form-item label="确认密码" prop="confirm_pwd">
-                    <el-input v-model="ruleForm.name"></el-input>
+                <el-form-item prop="password">
+                    <el-input v-model="ruleForm.password" placeholder="密码" type="password"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button class="regist-btn" type="primary" @click="submitForm('ruleForm')">立即注册</el-button>
+                    <el-button class="login-btn" type="primary" @click="submitForm('ruleForm')">立即登录</el-button>
                 </el-form-item>
             </el-form>             
         </div>
@@ -24,8 +21,7 @@
       return {
         ruleForm: {
           username: '',
-          password: '',
-          confirm_pwd: ''
+          password: ''
         },
         rules: {
           username: [
@@ -35,10 +31,6 @@
           password: [
             { required: true, message: '请输入密码', trigger: 'blur' },
             { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
-          ],
-          confirm_pwd: [
-            { required: true, message: '请确认密码', trigger: 'blur' },
-            { min: 3, max: 5, message: '长度在 3 到 10个字符', trigger: 'blur' }
           ]
         }
       };
@@ -58,15 +50,15 @@
   }
 </script>
 <style lang="scss" scoped>
-.regist{
+.login{
     width: 100%;
     height: 100%;
-    background: url('../assets/imgs/bg.jpg') no-repeat center;
+    background: url('../../assets/imgs/bg.jpg') no-repeat center;
     background-size:cover;
     position: relative;
-    .regist-box{
+    .login-box{
         box-sizing: border-box;
-        padding:30px 50px 30px 50px;
+        padding:60px 50px 30px 50px;
         width: 400px;
         height: 300px;
         background: rgba(255, 255, 255,0.7);
@@ -78,10 +70,10 @@
         -webkit-box-shadow:0 0 10px #999;
         -moz-box-shadow:0 0 10px #999;
         box-shadow:0 0 30px #999;
-        .regist-ruleForm{
+        .login-ruleForm{
             margin: auto; 
-            .regist-btn{
-              margin-left:40px;
+            .login-btn{
+              margin-left:100px;
             }         
         }
 

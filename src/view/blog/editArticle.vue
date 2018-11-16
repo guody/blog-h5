@@ -14,7 +14,7 @@
   ></mce-editor>
 </template>
 <script>
-import mceEditor from '../components/editor'
+import mceEditor from '@/components/editor'
 export default {
     data(){
         return {

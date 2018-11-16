@@ -89,7 +89,7 @@
                 .like-icon{
                     vertical-align: middle;
                     display: inline-block;
-                    background: #fff url('../assets/imgs/like-out.png') no-repeat center;
+                    background: #fff url('../../assets/imgs/like-out.png') no-repeat center;
                     height: 20px;
                     width: 20px;
                     background-size:contain;
@@ -99,7 +99,7 @@
                     border-left:1px solid #fff;
                 }
                 .like-in{
-                    background: url('../assets/imgs/like-in.png') no-repeat center;
+                    background: url('../../assets/imgs/like-in.png') no-repeat center;
                     background-size:contain;
                 }                             
             }
