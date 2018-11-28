@@ -10,7 +10,7 @@ export default new Router({
   routes: [
     {
       /**
-       * 首页
+       * 网站首页
        */
       path: '/(index)?',
       name: 'home',
@@ -55,21 +55,6 @@ export default new Router({
     },
     {
       /**
-       * 注册
-       */
-      path: '/regist',
-      name: 'regist',
-      component: resolve => {
-          require.ensure([], () => {
-              resolve(require('../view/admin/regist.vue')),'regist';
-          });
-      },
-      meta: {
-        title: '注册'
-      }
-    },
-    {
-      /**
        * 登录
        */
       path: '/login',
@@ -82,6 +67,21 @@ export default new Router({
       meta: {
         title: '登录'
       }
-    }       
+    },
+    {
+      /**
+       * admin 首页
+       */
+      path: '/admin',
+      name: 'admin',
+      component: resolve => {
+          require.ensure([], () => {
+              resolve(require('../view/admin/index.vue')),'admin';
+          });
+      },
+      meta: {
+        title: '博客管理系统'
+      }
+    }        
   ]
 })

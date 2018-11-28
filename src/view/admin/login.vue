@@ -38,10 +38,15 @@
     methods: {
       // 登录    
       submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
+        this.$refs[formName].validate(async (valid) => {
           if (valid) {
-            var loginResult =  $api.login();
-            alert('登录成功')
+            console.log(this.ruleForm)
+            var loginResult = await $api.login(this.ruleForm);
+            if(loginResult.code == '0' && loginResult.data.code == '0000'){
+              alert('登录成功')
+            }else{
+              alert('登录失败')
+            }
           } else {
             console.log('error submit!!');
             return false;
