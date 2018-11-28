@@ -12,7 +12,7 @@ export default new Router({
       /**
        * 首页
        */
-      path: '/',
+      path: '/(index)?',
       name: 'home',
       component: resolve => {
           require.ensure([], () => {

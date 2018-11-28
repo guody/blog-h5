@@ -36,10 +36,12 @@
       };
     },
     methods: {
+      // 登录    
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit!');
+            var loginResult =  $api.login();
+            alert('登录成功')
           } else {
             console.log('error submit!!');
             return false;
