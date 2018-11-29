@@ -1,10 +1,13 @@
 <template>
-    <div>
-        <top-head></top-head>
+    <div class="admin-box">
+        <left-menu></left-menu>
+        <main-con></main-con>
     </div>
 </template>
 <script>
-import topHead from "@/components/admin/topHead"
+
+import leftMenu from "@/components/admin/leftMenu"
+import mainCon from "@/components/admin/mainCon"
 export default {
     data(){
         return {
@@ -12,12 +15,17 @@ export default {
         }
     },
     components:{
-        topHead
+        leftMenu,
+        mainCon
     }
 }
 </script>
 <style lang="scss" scoped>
-
+    .admin-box{
+        width: 100%;
+        height: 100%;
+        display: flex;
+    }
 </style>
 
 
