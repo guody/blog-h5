@@ -1,6 +1,6 @@
 <template>
     <div class="headbox">
-        <span class="admin-menu menu-open"></span>
+        <span :class="[showAsideMenu?'menu-open':'','admin-menu']" @click="showAdminMenu"></span>
         <div class="link-box">
             <span>
                 <a href="" class="page-name">{{pageName}}</a>
@@ -26,8 +26,16 @@
 export default {
     data(){
         return{
+            showAsideMenu:false,  //是否显示侧栏菜单
             pageName:'首页'
         }
+    },
+    methods:{
+        // 点击菜单按钮，控制菜单显示
+        showAdminMenu(){
+            this.showAsideMenu = !this.showAsideMenu;
+            this.$root.eventBus.$emit('showAdminMenu',this.showAsideMenu)
+        }        
     }
 }
 </script>

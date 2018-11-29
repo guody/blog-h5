@@ -1,6 +1,6 @@
 <template>
     <div class="admin-box">
-        <left-menu></left-menu>
+        <left-menu :menuList="menuList"></left-menu>
         <main-con></main-con>
     </div>
 </template>
@@ -11,12 +11,24 @@ import mainCon from "@/components/admin/mainCon"
 export default {
     data(){
         return {
-
+            menuList:[]  // 菜单列表
         }
+    },
+    mounted(){
+        this.getAdminMenuList()
     },
     components:{
         leftMenu,
         mainCon
+    },
+    methods:{
+        // 获取菜单
+       async getAdminMenuList(){
+          var menuData = await $api.findAdminMenu();
+          if(menuData.code=='0' && menuData.data){
+              this.menuList = menuData.data
+          }
+        }
     }
 }
 </script>

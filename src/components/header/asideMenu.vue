@@ -5,28 +5,28 @@
                 <h4>目录</h4>
                 <el-col :span="24">
                     <el-menu
-                    default-active="1"
-                    class="el-menu-vertical"
-                    @open="handleOpen"
-                    @close="handleClose"
-                    background-color="#45494c"
-                    text-color="#fff"
-                    active-text-color="#ffd04b">
-                    <div v-for="(item,index) in menuList" :key="index">
-                        <template v-if="item.childMenu">
-                            <el-submenu :index="index+1+''">
-                                <template slot="title">
-                                    <span>{{item.menuName}}</span>
-                                </template>
-                                <el-menu-item v-for="(child,idx) in item.childMenu" :index="index+'-'+idx" :key="idx">{{child.categoryName}}</el-menu-item>
-                            </el-submenu>                            
-                        </template>
-                        <template v-else>
-                            <el-menu-item :index="index+1+''">
-                                <span slot="title">{{item.menuName}}</span>
-                            </el-menu-item>                            
-                        </template>
-                    </div>          
+                        default-active="1"
+                        class="el-menu-vertical"
+                        @open="handleOpen"
+                        @close="handleClose"
+                        background-color="#45494c"
+                        text-color="#fff"
+                        active-text-color="#ffd04b">
+                        <div v-for="(item,index) in menuList" :key="index">
+                            <template v-if="item.childMenu">
+                                <el-submenu :index="index+1+''">
+                                    <template slot="title">
+                                        <span>{{item.menuName}}</span>
+                                    </template>
+                                    <el-menu-item v-for="(child,idx) in item.childMenu" :index="index+'-'+idx" :key="idx">{{child.categoryName}}</el-menu-item>
+                                </el-submenu>                            
+                            </template>
+                            <template v-else>
+                                <el-menu-item :index="index+1+''">
+                                    <span slot="title">{{item.menuName}}</span>
+                                </el-menu-item>                            
+                            </template>
+                        </div>          
                     </el-menu>
                 </el-col>
             </div>

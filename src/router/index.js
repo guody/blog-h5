@@ -82,6 +82,21 @@ export default new Router({
       meta: {
         title: '博客管理系统'
       }
-    }        
+    },
+    {
+      /**
+       * admin 首页
+       */
+      path: '/manageMenu',
+      name: 'manageMenu',
+      component: resolve => {
+          require.ensure([], () => {
+              resolve(require('../components/admin/manageMenu.vue')),'manageMenu';
+          });
+      },
+      meta: {
+        title: '菜单管理'
+      }
+    }            
   ]
 })

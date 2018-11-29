@@ -10,8 +10,11 @@ import openTag from "@/components/admin/openTag"
 export default {
     data() {
         return {
-            
+
         }
+    },
+    mounted() {
+        
     },
     components:{
         topHead,

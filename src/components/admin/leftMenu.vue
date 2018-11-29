@@ -6,36 +6,23 @@
         @open="handleOpen" 
         @close="handleClose" 
         :collapse="isCollapse">
-        <el-submenu index="1">
-            <template slot="title">
-            <i class="el-icon-location"></i>
-            <span slot="title">导航一</span>
+        <div v-for="(item,index) in menuList" :key="index">
+            <template v-if="item.childMenu">
+                <el-submenu :index="index+1+''">
+                    <template slot="title">
+                        <i :class="getIconName(item.id)"></i>
+                        <span v-show="!isCollapse" slot="title">{{item.menuName}}</span>
+                    </template>
+                    <el-menu-item v-for="(child,idx) in item.childMenu" :index="index+'-'+idx" :key="idx">{{child.categoryName}}</el-menu-item>
+                </el-submenu>                            
             </template>
-            <el-menu-item-group>
-            <span slot="title">分组一</span>
-            <el-menu-item index="1-1">选项1</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group title="分组2">
-            <el-menu-item index="1-3">选项3</el-menu-item>
-            </el-menu-item-group>
-            <el-submenu index="1-4">
-            <span slot="title">选项4</span>
-            <el-menu-item index="1-4-1">选项1</el-menu-item>
-            </el-submenu>
-        </el-submenu>
-        <el-menu-item index="2">
-            <i class="el-icon-menu"></i>
-            <span slot="title">导航二</span>
-        </el-menu-item>
-        <el-menu-item index="3">
-            <i class="el-icon-document"></i>
-            <span slot="title">导航三</span>
-        </el-menu-item>
-        <el-menu-item index="4">
-            <i class="el-icon-setting"></i>
-            <span slot="title">导航四</span>
-        </el-menu-item>
+            <template v-else>
+                <el-menu-item :index="index+1+''">
+                    <i :class="getIconName(item.id)"></i>
+                    <span slot="title">{{item.menuName}}</span>
+                </el-menu-item>                            
+            </template>
+        </div>         
     </el-menu>    
 </template>
 <script>
@@ -45,7 +32,39 @@
         isCollapse: false
       };
     },
+    props:['menuList'],
+    mounted() {
+        // 控制菜单显示
+        this.adminSideMenuShow()
+    },
     methods: {
+        getIconName(id){
+            let iconName;
+            switch (id){
+                case 1:
+                    iconName = 'el-icon-menu'
+                    break;
+                case 2:
+                    iconName = 'el-icon-tickets'
+                    break;
+                case 3:
+                    iconName = 'el-icon-edit-outline'
+                    break;
+                case 4:
+                    iconName = 'el-icon-setting'
+                    break;
+                case 5:
+                    iconName = 'el-icon-more'
+                    break;                
+            }
+            return iconName;
+        },        
+      adminSideMenuShow(){
+            const that = this;
+            this.$root.eventBus.$on('showAdminMenu',function(val) {
+                that.isCollapse = val
+            })
+      },
       handleOpen(key, keyPath) {
         console.log(key, keyPath);
       },
