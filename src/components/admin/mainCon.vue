@@ -2,6 +2,7 @@
     <div class="main-box">
         <top-head></top-head>
         <open-tag></open-tag>
+        <router-view />
     </div>
 </template>
 <script>

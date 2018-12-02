@@ -1,6 +1,6 @@
 <template>
     <div>
-        111111
+        修改头像
     </div>    
 </template>
 <script>
@@ -11,5 +11,3 @@ export default {
 <style lang="scss" scoped>
 
 </style>
-
-
