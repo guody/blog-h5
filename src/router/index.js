@@ -78,7 +78,7 @@ export default new Router({
     },
     {
       /**
-       * admin
+       * 默认重定向 admin/home
        */
       path: '/admin',
       redirect: '/admin/home'
@@ -93,22 +93,27 @@ export default new Router({
       children:[
         {
           path:'home',
+          name:'adminHome',
           component:adminHome
         },         
         {
           path:'manageMenu',
+          name:'manageMenu',
           component:manageMenu,
         },
         {
           path:'manageArticle',
+          name:'manageArticle',
           component:manageArticle,
         },
         {
           path:'user/avator',
+          name:'avator',
           component:avator
         },         
         {
           path:'user/changePwd',
+          name:'changePwd',
           component:changePwd
         } 
       ],

@@ -13,11 +13,11 @@
                         <i :class="item.icon"></i>
                         <span v-show="!isCollapse" slot="title">{{item.menuName}}</span>
                     </template>
-                    <el-menu-item @click="skipPage(child.path)" v-for="(child,idx) in item.childMenu" :index="index+'-'+idx" :key="idx">{{child.categoryName}}</el-menu-item>
+                    <el-menu-item @click="skipPage(child.routeName)" v-for="(child,idx) in item.childMenu" :index="child.path" :key="idx">{{child.categoryName}}</el-menu-item>
                 </el-submenu>                            
             </template>
             <template v-else>
-                <el-menu-item @click="skipPage(item.path)" :index="index+1+''">
+                <el-menu-item @click="skipPage(item.routeName)" :index="index+1+''">
                     <i :class="item.icon"></i>
                     <span slot="title">{{item.menuName}}</span>
                 </el-menu-item>                            
@@ -39,10 +39,9 @@
     },
     methods: {
         // 路由跳转
-    skipPage(path){
-        if(path){
-            this.$router.push(path);
-            console.log(this.$route.path)
+    skipPage(name){
+        if(name){
+            this.$router.push({name:name});
         }
         
     },       
