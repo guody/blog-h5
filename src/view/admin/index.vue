@@ -44,8 +44,13 @@ export default {
     .admin-box{
         width: 100%;
         height: 100%;
+        overflow: hidden;
         display: flex;
         .right-area{
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
             background: #fff;
             flex: 1;
         }

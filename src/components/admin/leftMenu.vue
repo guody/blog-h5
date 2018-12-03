@@ -65,9 +65,8 @@
         float: left;
     }
   .el-menu-vertical:not(.el-menu--collapse) {
-    width: 220px;
-    height: 100%;
-    overflow: auto;
+    width: 200px;
+    overflow-y: auto;
   }
 </style>
 

@@ -1,47 +1,90 @@
 <template>
     <div class="menu-box">
-        <el-button type="primary" style="margin-bottom:40px;" icon="el-icon-plus">添加一级菜单</el-button>
+        <el-button @click="createFirstMenu" type="primary" size="small" style="margin-bottom:40px;" icon="el-icon-plus">添加一级菜单</el-button>
         <el-table
             :data="menuList"
             border
             stripe
-            style="width: 70%;height:100%;">
+            style="width: 100%;">
+            <el-table-column type="expand">
+                <template slot-scope="scope" v-if="scope.row.children.length>0">
+                    <el-table :row-class-name="getRowClass" :data="scope.row.children">
+                        <el-table-column
+                            width="100">
+                            <template slot-scope="scope">{{scope.row.id}}</template>
+                        </el-table-column>            
+                        <el-table-column
+                            width="180">
+                            <template slot-scope="scope">{{scope.row.menuName}}</template>
+                        </el-table-column>
+                        <el-table-column
+                            width="100">
+                            <template slot-scope="scope">{{scope.row.sortNo}}</template>
+                        </el-table-column>
+                        <el-table-column
+                            width="180">
+                            <template slot-scope="scope">{{scope.row.routeName}}</template>
+                        </el-table-column>           
+                        <el-table-column>
+                            <template slot-scope="scope">
+                                <el-button
+                                size="small"
+                                type="warning"
+                                plain
+                                @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                                <el-button
+                                size="small"
+                                type="primary"
+                                plain
+                                @click="handleEdit(scope.$index, scope.row)">新增</el-button>
+                                <el-button
+                                size="small"
+                                type="danger"
+                                plain
+                                @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                        </template>
+                        </el-table-column>                        
+                    </el-table>
+                </template>
+            </el-table-column>                      
             <el-table-column
-            prop="id"
-            label="菜单ID"
-            width="180">
+                label="菜单ID"
+                width="100">
+                <template slot-scope="scope">{{scope.row.id}}</template>
             </el-table-column>            
             <el-table-column
-            prop="menuName"
-            label="菜单名称"
-            width="180">
+                label="菜单名称"
+                width="180">
+                <template slot-scope="scope">{{scope.row.menuName}}</template>
             </el-table-column>
             <el-table-column
-            prop="sortNo"
-            label="排序"
-            width="100">
+                label="排序"
+                width="100">
+                <template slot-scope="scope">{{scope.row.sortNo}}</template>
             </el-table-column>
             <el-table-column
-            prop="routeName"
-            label="路由名称"
-            width="180">
+                label="路由名称"
+                width="180">
+                <template slot-scope="scope">{{scope.row.routeName}}</template>
             </el-table-column>           
             <el-table-column
-            prop="opera"
-            label="操作">
+                label="操作">
                 <template slot-scope="scope">
-                <el-button
-                size="small"
-                type="warning"
-                @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-                <el-button
-                size="small"
-                type="primary"
-                @click="handleEdit(scope.$index, scope.row)">新增</el-button>
-                <el-button
-                size="small"
-                type="danger"
-                @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                    <el-button
+                    size="small"
+                    type="warning"
+                    plain
+                    @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                    <el-button
+                    size="small"
+                    type="primary"
+                    plain
+                    @click="handleEdit(scope.$index, scope.row)">新增</el-button>
+                    <el-button
+                    size="small"
+                    type="danger"
+                    plain
+                    @click="handleDelete(scope.$index, scope.row)">删除</el-button>
             </template>
             </el-table-column>
         </el-table>        
@@ -58,6 +101,11 @@ export default {
         this.getMenuList();
     },
     methods:{
+        getRowClass:function(row,rowIndex){
+            if(row.row.children.length==0){
+                return 'row-expand-cover'
+            }
+        },
         // 获取文章菜单
        async getMenuList(){
           var menuData = await $api.findAllMenu();
@@ -65,11 +113,29 @@ export default {
               console.log(menuData)
               this.menuList = menuData.data 
           }
+        },
+        // 创建一级菜单
+        createFirstMenu(){
+            this.$prompt('', '', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            }).then(({ value }) => {
+            this.$message({
+                type: 'success',
+                message: '你的邮箱是: ' + value
+            });
+            }).catch(() => {
+            this.$message({
+                type: 'info',
+                message: '取消输入'
+            });       
+            });            
         }       
     }
 }
 </script>
 <style lang="scss" scoped>
+.row-expand-cover td:last-child .el-icon-arrow-right{visibility: hidden;}  
 </style>
 
 

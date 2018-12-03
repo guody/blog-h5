@@ -16,14 +16,14 @@
                             <template v-if="item.childMenu">
                                 <el-submenu :index="index+1+''">
                                     <template slot="title">
-                                        <span>{{item.name}}</span>
+                                        <span>{{item.menuName}}</span>
                                     </template>
-                                    <el-menu-item v-for="(child,idx) in item.childMenu" :index="index+'-'+idx" :key="idx">{{child.name}}</el-menu-item>
+                                    <el-menu-item v-for="(child,idx) in item.childMenu" :index="index+'-'+idx" :key="idx">{{child.menuName}}</el-menu-item>
                                 </el-submenu>                            
                             </template>
                             <template v-else>
                                 <el-menu-item :index="index+1+''">
-                                    <span slot="title">{{item.name}}</span>
+                                    <span slot="title">{{item.menuName}}</span>
                                 </el-menu-item>                            
                             </template>
                         </div>          
