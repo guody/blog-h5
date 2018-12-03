@@ -13,7 +13,7 @@
                         <i :class="item.icon"></i>
                         <span v-show="!isCollapse" slot="title">{{item.menuName}}</span>
                     </template>
-                    <el-menu-item @click="skipPage(child.routeName)" v-for="(child,idx) in item.childMenu" :index="child.path" :key="idx">{{child.categoryName}}</el-menu-item>
+                    <el-menu-item @click="skipPage(child.routeName)" v-for="(child,idx) in item.childMenu" :index="index+'-'+idx" :key="idx">{{child.categoryName}}</el-menu-item>
                 </el-submenu>                            
             </template>
             <template v-else>
