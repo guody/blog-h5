@@ -57,14 +57,14 @@ export default {
         // 监听打开移动端菜单
         getMenuShow(){
             const that = this;
-            this.$root.eventBus.$on('showMobileMenu',function(val) {
+            this.$bus.on('showMobileMenu',function(val) {
                 that.showMenu = val
             })
         },
         // 监听关闭移动端菜单
         getMenuClose(){
             const that = this;
-            this.$root.eventBus.$on('closeMobileMenu',function(val) {
+            this.$bus.on('closeMobileMenu',function(val) {
                 that.showMenu = val
             })            
         }

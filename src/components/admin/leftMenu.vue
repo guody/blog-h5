@@ -13,11 +13,11 @@
                         <i :class="item.icon"></i>
                         <span v-show="!isCollapse" slot="title">{{item.menuName}}</span>
                     </template>
-                    <el-menu-item @click="skipPage(child.routeName)" v-for="(child,idx) in item.childMenu" :index="index+'-'+idx" :key="idx">{{child.categoryName}}</el-menu-item>
+                    <el-menu-item @click="skipPage(child)" v-for="(child,idx) in item.childMenu" :index="index+'-'+idx" :key="idx">{{child.menuName}}</el-menu-item>
                 </el-submenu>                            
             </template>
             <template v-else>
-                <el-menu-item @click="skipPage(item.routeName)" :index="index+1+''">
+                <el-menu-item @click="skipPage(item)" :index="index+1+''">
                     <i :class="item.icon"></i>
                     <span slot="title">{{item.menuName}}</span>
                 </el-menu-item>                            
@@ -29,44 +29,42 @@
   export default {
     data() {
       return {
-        isCollapse: false
+        isCollapse: false,
+        menuIndex:''
       };
     },
     props:['menuList'],
-    created() {
+    created(){
         // 控制菜单显示
-        this.adminSideMenuShow()  
+        this.adminSideMenuShow()
     },
     methods: {
         // 路由跳转
-    skipPage(name){
-        if(name){
-            this.$router.push({name:name});
-        }
-        
-    },       
-    adminSideMenuShow(){
+        skipPage(routeInfo){
+            this.$bus.emit('changeMenu',routeInfo) 
+            this.$router.push({name:routeInfo.routeName});
+        },       
+        adminSideMenuShow(){
             const that = this;
-            this.$root.eventBus.$on('showAdminMenu',function(val) {
+            this.$bus.on('showAdminMenu',function(val) {
                 that.isCollapse = val
             })
-      },
-      handleOpen(key, keyPath) {
-        console.log(key, keyPath);
-      },
-      handleClose(key, keyPath) {
-        console.log(key, keyPath);
-      }
+        },
+        handleOpen(key, keyPath) {
+            console.log(key, keyPath);
+        },
+        handleClose(key, keyPath) {
+            console.log(key, keyPath);
+        }
     }
   }
 </script>
 <style lang="scss" scoped>
-    .el-menu-vertical{
-        float: left;
-    }
+  .el-menu-vertical{
+    overflow-y: auto;
+  }
   .el-menu-vertical:not(.el-menu--collapse) {
     width: 200px;
-    overflow-y: auto;
   }
 </style>
 

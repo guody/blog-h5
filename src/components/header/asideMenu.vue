@@ -49,7 +49,7 @@ export default {
         //显示侧栏菜单
         getMenuShow(){
             const that = this;
-            this.$root.eventBus.$on('showMobileMenu',function(val) {
+            this.$bus.on('showMobileMenu',function(val) {
                 that.showMask = val
                 that.showMenu = val
             })
@@ -57,7 +57,7 @@ export default {
         // 关闭侧栏菜单
         closeMenu(){
             this.showMenu = false;
-            this.$root.eventBus.$emit('closeMobileMenu',this.showMenu)
+            this.$bus.emit('closeMobileMenu',this.showMenu)
         },
         // 过渡状态钩子，当侧栏菜单消失时，蒙层消失
         afterLeave: function (el) {

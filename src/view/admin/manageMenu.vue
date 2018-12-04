@@ -5,10 +5,10 @@
             :data="menuList"
             border
             stripe
-            style="width: 100%;">
+            style="width: 70%;">
             <el-table-column type="expand">
                 <template slot-scope="scope" v-if="scope.row.children.length>0">
-                    <el-table :row-class-name="getRowClass" :data="scope.row.children">
+                    <el-table :data="scope.row.children">
                         <el-table-column
                             width="100">
                             <template slot-scope="scope">{{scope.row.id}}</template>
@@ -42,7 +42,7 @@
                                 type="danger"
                                 plain
                                 @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-                        </template>
+                            </template>
                         </el-table-column>                        
                     </el-table>
                 </template>
@@ -100,12 +100,14 @@ export default {
     created(){
         this.getMenuList();
     },
-    methods:{
+    computed:{
         getRowClass:function(row,rowIndex){
             if(row.row.children.length==0){
                 return 'row-expand-cover'
             }
-        },
+        }
+    },
+    methods:{
         // 获取文章菜单
        async getMenuList(){
           var menuData = await $api.findAllMenu();
@@ -135,7 +137,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.row-expand-cover td:last-child .el-icon-arrow-right{visibility: hidden;}  
+
 </style>
 
 

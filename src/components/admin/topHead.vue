@@ -4,6 +4,12 @@
         <div class="link-box">
             <span>
                 <a href="" class="page-name">{{pageName}}</a>
+                <template v-if="openTabShow">
+                    <span class="page-name">/</span>
+                    <span  class="page-name subTab">
+                        {{routeInfo.menuName}}
+                    </span>
+                </template>
             </span>
         </div>
         <h3>博客管理系统</h3>
@@ -27,15 +33,31 @@ export default {
     data(){
         return{
             showAsideMenu:false,  //是否显示侧栏菜单
-            pageName:'首页'
+            pageName:'首页',
+            openTabShow:false,
+            routeInfo:''
         }
+    },
+    created(){
+        this.$bus.on('changeMenu',this.showOpenTab)
     },
     methods:{
         // 点击菜单按钮，控制菜单显示
         showAdminMenu(){
             this.showAsideMenu = !this.showAsideMenu;
-            this.$root.eventBus.$emit('showAdminMenu',this.showAsideMenu)
-        }        
+            this.$bus.$emit('showAdminMenu',this.showAsideMenu)
+        },
+        showOpenTab(routeInfo){
+            // console.log(routeInfo)
+            if(routeInfo.routeName =='adminHome'){
+                return
+            }
+            this.openTabShow = true;
+            this.routeInfo = routeInfo;
+        }      
+    },
+    beforeDestroy(){
+        this.$bus.off('changeMenu',this.showOpenTab)
     }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
     <div class="admin-box">
-        <left-menu :menuList="menuList"></left-menu>
+        <left-menu class="left-area" :menuList="menuList"></left-menu>
         <div class="right-area">
             <top-head></top-head>
             <open-tag></open-tag>
@@ -9,7 +9,6 @@
     </div>
 </template>
 <script>
-
 import leftMenu from "@/components/admin/leftMenu"
 import mainCon from "@/components/admin/mainCon"
 import topHead from "@/components/admin/topHead"
@@ -42,15 +41,12 @@ export default {
 </script>
 <style lang="scss" scoped>
     .admin-box{
-        width: 100%;
         height: 100%;
-        overflow: hidden;
         display: flex;
         .right-area{
             display: flex;
             flex-direction: column;
             height: 100%;
-            width: 100%;
             background: #fff;
             flex: 1;
         }

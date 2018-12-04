@@ -16,11 +16,12 @@ Vue.use(ElementUI);
 Vue.use(VueWechatTitle);   //动态设置title
 window.$api = api;
 
+Vue.use(eventBus)
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
-  data:{eventBus},
   components: { App },
   template: '<App/>'
 })

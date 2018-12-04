@@ -12,6 +12,18 @@ export default {
         return {
             tagList:['首页','用户信息','文章管理']
         }
+    },
+    created(){
+        this.$bus.on('changeMenu',this.showOpenTab)
+    },
+    methods:{
+        showOpenTab(routeInfo){
+            console.log(routeInfo)
+            this.routeInfo = routeInfo;
+        } 
+    },
+    beforeDestroy(){
+        this.$bus.off('changeMenu',this.showOpenTab)
     }
 }
 </script>

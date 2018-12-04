@@ -26,7 +26,7 @@ export default {
         //移动端点击menu-icon显示侧栏菜单
         showMenu(){
             this.showAsideMenu = true;
-            this.$root.eventBus.$emit('showMobileMenu',this.showAsideMenu)
+            this.$bus.emit('showMobileMenu',this.showAsideMenu)
         }
     }    
 }
