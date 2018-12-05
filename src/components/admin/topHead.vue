@@ -3,7 +3,7 @@
         <span :class="[showAsideMenu?'menu-open':'','admin-menu']" @click="showAdminMenu"></span>
         <div class="link-box">
             <span>
-                <a href="" class="page-name">{{pageName}}</a>
+                <a href="" class="page-name">{{pageNameList[0].pageName}}</a>
                 <template v-if="openTabShow">
                     <span class="page-name">/</span>
                     <span  class="page-name subTab">
@@ -33,12 +33,16 @@ export default {
     data(){
         return{
             showAsideMenu:false,  //是否显示侧栏菜单
-            pageName:'首页',
+            pageNameList:[{routeName:'adminHome',pageName:'首页'}],
             openTabShow:false,
             routeInfo:''
         }
     },
     created(){
+        // 判断当前路由
+        if(this.$route.name == !'adminHome'){
+            // this.pageNameList.push({routeName: this.$route.name,pageName: '首页'})
+        }
         this.$bus.on('changeMenu',this.showOpenTab)
     },
     methods:{

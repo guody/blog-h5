@@ -10,7 +10,7 @@
 export default {
     data() {
         return {
-            tagList:['首页','用户信息','文章管理']
+            tagList:[]   // 标签列表
         }
     },
     created(){

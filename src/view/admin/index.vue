@@ -19,6 +19,9 @@ export default {
             menuList:[]  // 菜单列表
         }
     },
+    created(){
+        
+    },
     mounted(){
         this.getAdminMenuList()
     },

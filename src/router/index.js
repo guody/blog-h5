@@ -110,7 +110,7 @@ export default new Router({
           path:'user/avator',
           name:'avator',
           component:avator
-        },         
+        },
         {
           path:'user/changePwd',
           name:'changePwd',
