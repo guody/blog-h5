@@ -13,11 +13,11 @@
                         <i :class="item.icon"></i>
                         <span v-show="!isCollapse" slot="title">{{item.menuName}}</span>
                     </template>
-                    <el-menu-item @click="skipPage(child,item.menuName)" v-for="(child,idx) in item.childMenu" :index="child.routeName" :key="idx">{{child.menuName}}</el-menu-item>
+                    <el-menu-item @click="skipPage(child.routeName)" v-for="(child,idx) in item.childMenu" :index="child.routeName" :key="idx">{{child.menuName}}</el-menu-item>
                 </el-submenu>                            
             </template>
             <template v-else>
-                <el-menu-item @click="skipPage(item)" :index="item.routeName">
+                <el-menu-item @click="skipPage(item.routeName)" :index="item.routeName">
                     <i :class="item.icon"></i>
                     <span slot="title">{{item.menuName}}</span>
                 </el-menu-item>                            
@@ -29,26 +29,35 @@
   export default {
     data() {
       return {
-        menuActive:this.$route.name,  // 菜单高亮
+        menuList:[],  // 菜单列表
         isCollapse: false,
-        menuIndex:''
+        menuIndex:'',
+        curRouterInfo:{} //当前路由信息
       };
     },
-    props:['menuList'],
+    computed:{
+        menuActive(){
+            return this.$route.name;
+        }
+    },
     created(){
-        // 控制菜单显示
+        // 查询菜单
+        this.getAdminMenuList()
+        // 控制菜单栏显示
         this.adminSideMenuShow()
-        // 将默认的选中的路由信息传送给其他组件
     },
     methods: {
-        // 路由跳转
-        skipPage(routeInfo,subName){
-            if(subName){
-                routeInfo.subName = subName
+        // 获取菜单
+        async getAdminMenuList(){
+            var menuData = await $api.findAdminMenu();
+            if(menuData.code=='0' && menuData.data){
+                this.menuList = menuData.data
             }
-            console.log(routeInfo)
-            // this.$bus.emit('changeMenu',routeInfo) 
-            this.$router.push({name:routeInfo.routeName});
+            this.$store.dispatch('routerList',this.menuList)
+        },
+        // 路由跳转
+        skipPage(routeName){
+            this.$router.push({name:routeName});
         },       
         adminSideMenuShow(){
             const that = this;

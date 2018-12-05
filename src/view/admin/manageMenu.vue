@@ -5,7 +5,7 @@
             :data="menuList"
             border
             stripe
-            style="width: 70%;">
+            style="width: 80%;">
             <el-table-column type="expand">
                 <template slot-scope="scope" v-if="scope.row.children.length>0">
                     <el-table :data="scope.row.children">
@@ -14,7 +14,7 @@
                             <template slot-scope="scope">{{scope.row.id}}</template>
                         </el-table-column>            
                         <el-table-column
-                            width="180">
+                            width="150">
                             <template slot-scope="scope">{{scope.row.menuName}}</template>
                         </el-table-column>
                         <el-table-column
@@ -22,7 +22,7 @@
                             <template slot-scope="scope">{{scope.row.sortNo}}</template>
                         </el-table-column>
                         <el-table-column
-                            width="180">
+                            width="150">
                             <template slot-scope="scope">{{scope.row.routeName}}</template>
                         </el-table-column>           
                         <el-table-column>
@@ -54,7 +54,7 @@
             </el-table-column>            
             <el-table-column
                 label="菜单名称"
-                width="180">
+                width="150">
                 <template slot-scope="scope">{{scope.row.menuName}}</template>
             </el-table-column>
             <el-table-column
@@ -64,7 +64,7 @@
             </el-table-column>
             <el-table-column
                 label="路由名称"
-                width="180">
+                width="150">
                 <template slot-scope="scope">{{scope.row.routeName}}</template>
             </el-table-column>           
             <el-table-column

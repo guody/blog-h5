@@ -3,12 +3,18 @@
         <span :class="[showAsideMenu?'menu-open':'','admin-menu']" @click="showAdminMenu"></span>
         <div class="link-box">
             <span>
-                <a href="" class="page-name">{{pageNameList[0].pageName}}</a>
-                <template v-if="openTabShow">
-                    <span class="page-name">/</span>
-                    <span  class="page-name subTab">
-                        {{routeInfo.menuName}}
-                    </span>
+                <router-link :class="[homeStyle?'page-name':'homeActive']" to='/admin'>{{pageNameList[0].pageName}}</router-link>
+                <template v-if="curRouterInfo.routeName!=='adminHome'">
+                    <template v-if="curRouterInfo.subName">
+                        <span class="page-name">/</span>
+                        <span  class="page-name">
+                            {{curRouterInfo.subName}}
+                        </span>
+                    </template>
+                    <span  class="page-name">/</span>
+                    <span  class="page-name">
+                        {{curRouterInfo.menuName}}
+                    </span>                        
                 </template>
             </span>
         </div>
@@ -29,21 +35,28 @@
     </div>
 </template>
 <script>
+import * as utils from '../../libs/utils.js'
 export default {
     data(){
         return{
             showAsideMenu:false,  //是否显示侧栏菜单
             pageNameList:[{routeName:'adminHome',pageName:'首页'}],
             openTabShow:false,
-            routeInfo:''
         }
     },
     created(){
-        // 判断当前路由
-        if(this.$route.name == !'adminHome'){
-            // this.pageNameList.push({routeName: this.$route.name,pageName: '首页'})
+  
+    },
+    computed:{
+        curRouterInfo(){
+            return utils.getRouterInfo(this.$store.state.routerList,this.$route.name)
+        },
+        homeStyle(){
+            if(this.curRouterInfo.routeName !== 'adminHome'){
+                return false;
+            }
+            return true;
         }
-        this.$bus.on('changeMenu',this.showOpenTab)
     },
     methods:{
         // 点击菜单按钮，控制菜单显示
@@ -59,9 +72,6 @@ export default {
             this.openTabShow = true;
             this.routeInfo = routeInfo;
         }      
-    },
-    beforeDestroy(){
-        this.$bus.off('changeMenu',this.showOpenTab)
     }
 }
 </script>
@@ -92,6 +102,10 @@ export default {
     }
     .link-box{
         display: inline-block;
+        .homeActive{
+            color: #333;
+            font-size: 1.3rem;
+        }
         .page-name{
             font-size: 1.3rem;
             color: #999;
@@ -100,6 +114,7 @@ export default {
             color: #666;
             text-decoration: underline;
         }
+
     }
 
     h3{

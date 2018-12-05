@@ -1,6 +1,6 @@
 <template>
     <div class="admin-box">
-        <left-menu class="left-area" :menuList="menuList"></left-menu>
+        <left-menu class="left-area"></left-menu>
         <div class="right-area">
             <top-head></top-head>
             <open-tag></open-tag>
@@ -16,29 +16,17 @@ import openTag from "@/components/admin/openTag"
 export default {
     data(){
         return {
-            menuList:[]  // 菜单列表
+            
         }
     },
     created(){
         
-    },
-    mounted(){
-        this.getAdminMenuList()
     },
     components:{
         leftMenu,
         mainCon,
         topHead,
         openTag
-    },
-    methods:{
-        // 获取菜单
-       async getAdminMenuList(){
-          var menuData = await $api.findAdminMenu();
-          if(menuData.code=='0' && menuData.data){
-              this.menuList = menuData.data
-          }
-        }
     }
 }
 </script>

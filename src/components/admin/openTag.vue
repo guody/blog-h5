@@ -1,29 +1,38 @@
 <template>
     <div class="opentag-box">
-        <span class="tag-btn active" v-for="(tagname,index) in tagList" :key="index">
-            <label>{{tagname}}</label>
-            <span class="el-icon-close"></span>
-        </span>
+        <router-link to='' class="tag-btn-box" v-for="(tagname,index) in tagList" :key="index">
+            <span class="tag-btn active" >
+                <label>{{tagname}}</label>
+                <span class="el-icon-close"></span>
+            </span>
+        </router-link>
     </div>
 </template>
 <script>
+import * as utils from '../../libs/utils.js'
 export default {
     data() {
         return {
-            tagList:[]   // 标签列表
+            tagList:['qq']   // 标签列表
+        }
+    },
+    computed:{
+        routerList(){
+            return this.$store.state.routerList;
+        },
+        openRouterList(){
+            // this.tagList.push(utils.getRouterInfo(this.routerList,this.$route.name))
+            // return this.$store.state.openRouterList;
         }
     },
     created(){
-        this.$bus.on('changeMenu',this.showOpenTab)
+        // this.$store.dispatch('routerList',this.menuList)
     },
     methods:{
         showOpenTab(routeInfo){
             console.log(routeInfo)
             this.routeInfo = routeInfo;
         } 
-    },
-    beforeDestroy(){
-        this.$bus.off('changeMenu',this.showOpenTab)
     }
 }
 </script>
@@ -34,6 +43,10 @@ export default {
     height: 32px;
     line-height: 32px;
     padding:0 10px;
+    .tag-btn-box{
+        display: inline-block;
+        overflow: hidden;
+    }
     .tag-btn{
         border-radius: 2px;
         position: relative;
