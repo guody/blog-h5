@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import store from './store'
+import axios from 'axios'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import 'element-ui/lib/theme-chalk/display.css';
@@ -20,7 +21,7 @@ window.$api = api;
 Vue.use(eventBus)
 
 /* eslint-disable no-new */
-new Vue({
+let vm = new Vue({
   el: '#app',
   router,
   store,

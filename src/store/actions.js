@@ -9,13 +9,20 @@ export default {
     userInfo({ commit }, userInfo) {
         commit(types.USER_INFO, userInfo);
     },
+    // 菜单
+    menuList({ commit }) {
+        let menuData = $api.findAdminMenu()
+            .then((res)=>{
+                if(res.code=='0' && res.data){
+                    commit(types.MENU_LIST,res.data);
+                }
+            }).catch((error) => {
+                console.log(error)
+            })
+        
+    },    
     // 路由的信息
-    routerList({commit},routerList){
-        commit(types.ROUTER_LIST, routerList);
-    }, 
-    
-    // 打开的路由信息
-    openRouterList({commit},openRouterList){
-        commit(types.OPEN_ROUTER_LIST, openRouterList);
-    } 
+    curRouter({commit},curRouter){
+        commit(types.CUR_ROUTER, curRouter);
+    }
 }

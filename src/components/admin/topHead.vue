@@ -2,21 +2,13 @@
     <div class="headbox">
         <span :class="[showAsideMenu?'menu-open':'','admin-menu']" @click="showAdminMenu"></span>
         <div class="link-box">
-            <span>
-                <router-link :class="[homeStyle?'page-name':'homeActive']" to='/admin'>{{pageNameList[0].pageName}}</router-link>
-                <template v-if="curRouterInfo.routeName!=='adminHome'">
-                    <template v-if="curRouterInfo.subName">
-                        <span class="page-name">/</span>
-                        <span  class="page-name">
-                            {{curRouterInfo.subName}}
-                        </span>
-                    </template>
-                    <span  class="page-name">/</span>
-                    <span  class="page-name">
-                        {{curRouterInfo.menuName}}
-                    </span>                        
+            <el-breadcrumb separator="/">
+                <el-breadcrumb-item :to="{ path: '/admin' }">首页</el-breadcrumb-item>
+                <template v-if="curRouter.routeName!=='adminHome'">
+                    <el-breadcrumb-item v-if="curRouter.subName">{{curRouter.subName}}</el-breadcrumb-item>
+                    <el-breadcrumb-item>{{curRouter.menuName}}</el-breadcrumb-item>
                 </template>
-            </span>
+            </el-breadcrumb>
         </div>
         <h3>博客管理系统</h3>
         <div class="user-box">
@@ -35,27 +27,18 @@
     </div>
 </template>
 <script>
-import * as utils from '../../libs/utils.js'
 export default {
     data(){
         return{
-            showAsideMenu:false,  //是否显示侧栏菜单
-            pageNameList:[{routeName:'adminHome',pageName:'首页'}],
-            openTabShow:false,
+            showAsideMenu:false  //是否显示侧栏菜单
         }
     },
     created(){
   
     },
     computed:{
-        curRouterInfo(){
-            return utils.getRouterInfo(this.$store.state.routerList,this.$route.name)
-        },
-        homeStyle(){
-            if(this.curRouterInfo.routeName !== 'adminHome'){
-                return false;
-            }
-            return true;
+        curRouter(){
+            return this.$store.state.curRouter;
         }
     },
     methods:{
@@ -63,15 +46,7 @@ export default {
         showAdminMenu(){
             this.showAsideMenu = !this.showAsideMenu;
             this.$bus.$emit('showAdminMenu',this.showAsideMenu)
-        },
-        showOpenTab(routeInfo){
-            // console.log(routeInfo)
-            if(routeInfo.routeName =='adminHome'){
-                return
-            }
-            this.openTabShow = true;
-            this.routeInfo = routeInfo;
-        }      
+        }    
     }
 }
 </script>
@@ -102,19 +77,6 @@ export default {
     }
     .link-box{
         display: inline-block;
-        .homeActive{
-            color: #333;
-            font-size: 1.3rem;
-        }
-        .page-name{
-            font-size: 1.3rem;
-            color: #999;
-        }
-        .page-name:hover{
-            color: #666;
-            text-decoration: underline;
-        }
-
     }
 
     h3{

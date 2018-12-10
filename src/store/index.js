@@ -13,10 +13,10 @@ Vue.use(Vuex);
     curLoading: false,
     // 存储登录后该用户的信息
     userInfo: {},
-    // 路由信息
-    routerList:[],
-    //打开的路由
-    openRouterList:[]
+    // 菜单List
+    menuList:[],
+    // 当前路由信息
+    curRouter:{}
  }
 
  export default new Vuex.Store({

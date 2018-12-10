@@ -15,6 +15,9 @@ export default {
 </script>
 <style lang="scss" scoped>
     .con-box{
+        width: 100%;
+        height: 100%;
+        flex: 1;
         box-sizing: border-box; 
         padding: 20px 40px;
         overflow-y: auto;

@@ -1,9 +1,9 @@
 <template>
     <div class="opentag-box">
-        <router-link to='' class="tag-btn-box" v-for="(tagname,index) in tagList" :key="index">
-            <span class="tag-btn active" >
-                <label>{{tagname}}</label>
-                <span class="el-icon-close"></span>
+        <router-link to='' class="tag-btn-box" v-for="(tag,index) in tagList" :key="index">
+            <span :class="[tabActive?'active':'','tag-btn']" v-if="showTab" @click="skipRoute">
+                <label>{{tag.menuName}}</label>
+                <span @click="showOpenTab" class="el-icon-close"></span>
             </span>
         </router-link>
     </div>
@@ -13,26 +13,45 @@ import * as utils from '../../libs/utils.js'
 export default {
     data() {
         return {
-            tagList:['qq']   // 标签列表
+            tagList:[],   // 标签列表
+            showTab:true,
+            tabActive:false
         }
     },
-    computed:{
-        routerList(){
-            return this.$store.state.routerList;
-        },
-        openRouterList(){
-            // this.tagList.push(utils.getRouterInfo(this.routerList,this.$route.name))
-            // return this.$store.state.openRouterList;
+    // props:["menuList"],
+    // computed: {
+    //     menuList: {
+    //         get: function () {
+    //             return this.$store.state.menuList
+    //         },
+    //         set: function () {
+    //         }
+    //     }  
+    // },
+    watch:{
+        $route(){
+            this.tagList.push(this.$store.state.curRouter)
         }
     },
-    created(){
-        // this.$store.dispatch('routerList',this.menuList)
+    mounted(){
+        console.log(222)
+        console.log(this.$route.name)
+        console.log(this.$store.state.menuList)
+        // this.tagList.push(utils.getRouterInfo(this.menuList,this.$route.name))
     },
     methods:{
-        showOpenTab(routeInfo){
-            console.log(routeInfo)
-            this.routeInfo = routeInfo;
-        } 
+
+    },
+    methods:{
+        showOpenTab(){
+            this.showTab = false;
+        },
+        skipRoute(){
+            // this.$store.dispatch('curRouter',utils.getRouterInfo(this.menuList,this.$route.name))
+            // if(this.$route.name == this.$store.state.curRouter.routeName){
+            //     this.tabActive = true;
+            // }
+        }
     }
 }
 </script>

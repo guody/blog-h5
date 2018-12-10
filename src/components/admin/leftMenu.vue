@@ -13,11 +13,11 @@
                         <i :class="item.icon"></i>
                         <span v-show="!isCollapse" slot="title">{{item.menuName}}</span>
                     </template>
-                    <el-menu-item @click="skipPage(child.routeName)" v-for="(child,idx) in item.childMenu" :index="child.routeName" :key="idx">{{child.menuName}}</el-menu-item>
+                    <el-menu-item @click="skipPage(child,item.menuName)" v-for="(child,idx) in item.childMenu" :index="child.routeName" :key="idx">{{child.menuName}}</el-menu-item>
                 </el-submenu>                            
             </template>
             <template v-else>
-                <el-menu-item @click="skipPage(item.routeName)" :index="item.routeName">
+                <el-menu-item @click="skipPage(item)" :index="item.routeName">
                     <i :class="item.icon"></i>
                     <span slot="title">{{item.menuName}}</span>
                 </el-menu-item>                            
@@ -26,10 +26,10 @@
     </el-menu>    
 </template>
 <script>
-  export default {
+import { mapActions } from 'vuex'
+export default {
     data() {
       return {
-        menuList:[],  // 菜单列表
         isCollapse: false,
         menuIndex:'',
         curRouterInfo:{} //当前路由信息
@@ -38,26 +38,26 @@
     computed:{
         menuActive(){
             return this.$route.name;
+        },
+        menuList(){
+            return this.$store.state.menuList;
         }
     },
     created(){
-        // 查询菜单
-        this.getAdminMenuList()
         // 控制菜单栏显示
         this.adminSideMenuShow()
     },
     methods: {
-        // 获取菜单
-        async getAdminMenuList(){
-            var menuData = await $api.findAdminMenu();
-            if(menuData.code=='0' && menuData.data){
-                this.menuList = menuData.data
-            }
-            this.$store.dispatch('routerList',this.menuList)
-        },
+        ...mapActions([
+        'menuList', // 将 `this.increment()` 映射为 `this.$store.dispatch('increment')`
+        ]),        
         // 路由跳转
-        skipPage(routeName){
-            this.$router.push({name:routeName});
+        skipPage(routeInfo,menuName){
+            if(menuName){
+                routeInfo.subName = menuName
+            }
+            this.$store.dispatch('curRouter',routeInfo)
+            this.$router.push({name:routeInfo.routeName});
         },       
         adminSideMenuShow(){
             const that = this;

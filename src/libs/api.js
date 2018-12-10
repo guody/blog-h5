@@ -11,6 +11,10 @@ export default {
     findAllMenu(param){
         return http.get('/pub/findallmenu',param)
     },
+    // 添加文章根目录
+    insertMenu(param){
+        return http.post('/priv/insertMenu',param)
+    },
     //用户登录
     login(param){
         return http.post('/pub/login',param)

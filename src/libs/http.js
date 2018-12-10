@@ -1,10 +1,18 @@
 //引入axios
 import axios from 'axios'
+import { Loading } from 'element-ui';
 
-let cancel ,promiseArr = {}
+let cancel ,promiseArr= {}
+let loadFlag;
 const CancelToken = axios.CancelToken;
 //请求拦截器
 axios.interceptors.request.use(config => {
+  loadFlag = Loading.service({
+    lock: true,
+    text: 'Loading',
+    spinner: 'el-icon-loading',
+    background: 'rgba(0, 0, 0, 0.7)'
+  });
     //发起请求时，取消掉当前正在进行的相同请求
     if (promiseArr[config.url]) {
         promiseArr[config.url]('操作取消')
@@ -19,8 +27,14 @@ axios.interceptors.request.use(config => {
 
 //响应拦截器即异常处理
 axios.interceptors.response.use(response => {
-    return response
+  setTimeout(() => {
+    loadFlag.close()
+  }, 0)
+  return response
 }, err => {
+    setTimeout(() => {
+      loadFlag.close()
+    }, 3000)
     if (err && err.response) {
       switch (err.response.status) {
         case 400:

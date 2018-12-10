@@ -17,17 +17,23 @@ export default {
     [types.USER_INFO](state, userInfo) {
         state.userInfo = userInfo;
     },
+
+    /**
+     * 菜单List
+     * @param {*} state 
+     * @param {*} menuList 
+     */
+    [types.MENU_LIST](state, menuList) {
+        state.menuList = menuList;
+    },
+
     /**
      * 跳转路由的信息
      * @param {*} state 
      * @param {*} routerInfo 
      */
-    [types.ROUTER_LIST](state, routerList) {
-        state.routerList = routerList;
-    },
-
-    [types.OPEN_ROUTER_LIST](state, openRouterList) {
-        state.openRouterList = openRouterList;
+    [types.CUR_ROUTER](state, curRouter) {
+        state.curRouter = curRouter;
     }
 
 }

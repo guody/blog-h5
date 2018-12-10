@@ -9,7 +9,7 @@ export const CUR_LOADING = 'CUR_LOADING'
 export const USER_INFO = 'USER_INFO';
 
 // 跳转路由的信息
-export const ROUTER_LIST = 'ROUTER_LIST';
+export const CUR_ROUTER = 'CUR_ROUTER'
 
-// 打开的路由信息
-export const OPEN_ROUTER_LIST = 'OPEN_ROUTER_LIST'
+// 菜单list
+export const MENU_LIST = 'MENU_LIST'
