@@ -38,19 +38,14 @@ export default {
     computed:{
         menuActive(){
             return this.$route.name;
-        },
-        menuList(){
-            return this.$store.state.menuList;
         }
     },
+    props:['menuList'],
     created(){
         // 控制菜单栏显示
         this.adminSideMenuShow()
     },
-    methods: {
-        ...mapActions([
-        'menuList', // 将 `this.increment()` 映射为 `this.$store.dispatch('increment')`
-        ]),        
+    methods: {     
         // 路由跳转
         skipPage(routeInfo,menuName){
             if(menuName){

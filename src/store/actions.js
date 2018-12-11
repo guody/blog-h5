@@ -10,16 +10,8 @@ export default {
         commit(types.USER_INFO, userInfo);
     },
     // 菜单
-    menuList({ commit }) {
-        let menuData = $api.findAdminMenu()
-            .then((res)=>{
-                if(res.code=='0' && res.data){
-                    commit(types.MENU_LIST,res.data);
-                }
-            }).catch((error) => {
-                console.log(error)
-            })
-        
+    menuList({ commit ,menuList}) {
+        commit(types.MENU_LIST,menuiList);  
     },    
     // 路由的信息
     curRouter({commit},curRouter){

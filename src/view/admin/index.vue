@@ -1,6 +1,6 @@
 <template>
     <div class="admin-box">
-        <left-menu class="left-area" ></left-menu>
+        <left-menu class="left-area" :menuList='menuList'></left-menu>
         <div class="right-area">
             <top-head></top-head>
             <open-tag></open-tag>
@@ -17,14 +17,20 @@ import * as utils from '../../libs/utils'
 export default {
     data(){
         return {
-  
+            menuList:[]
         }
     },
     created(){
-        this.$store.dispatch('menuList')
+        this.getAdminMenuList()
     },
     methods:{
-
+        async getAdminMenuList(){
+            let menuData =await $api.findAdminMenu()
+            console.log(menuData)
+            if(menuData.code=='0' && menuData.data){
+                this.menuList = menuData.data;
+            }
+        }
     },
     components:{
         leftMenu,

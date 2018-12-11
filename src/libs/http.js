@@ -1,6 +1,6 @@
 //引入axios
 import axios from 'axios'
-import { Loading } from 'element-ui';
+import { Loading,Message } from 'element-ui';
 
 let cancel ,promiseArr= {}
 let loadFlag;
@@ -30,11 +30,21 @@ axios.interceptors.response.use(response => {
   setTimeout(() => {
     loadFlag.close()
   }, 0)
+  // 提示程序异常
+  if(response.data.code != '0'){
+    Message({
+      message: response.data.message,
+      type: 'error',
+      duration:2000,
+      center:true
+    });
+  }
   return response
 }, err => {
     setTimeout(() => {
       loadFlag.close()
-    }, 3000)
+    }, 2000)
+
     if (err && err.response) {
       switch (err.response.status) {
         case 400:
@@ -79,6 +89,13 @@ axios.interceptors.response.use(response => {
     } else {
       err.message = "连接到服务器失败"
     }
+    Message({
+      message: err.message,
+      type: 'error',
+      duration:2000,
+      center:true
+    });   
+
     // message.err(err.message)
     return Promise.resolve(err.response)
 })

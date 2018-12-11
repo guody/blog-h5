@@ -169,13 +169,6 @@ export default {
                     center:true
                 });         
                 this.getMenuList();    
-            }else{
-                this.$message({
-                    message: result.message,
-                    type: 'error',
-                    duration:2000,
-                    center:true
-                });                 
             }
 
         }      
