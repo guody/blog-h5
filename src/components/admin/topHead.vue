@@ -11,6 +11,10 @@
             </el-breadcrumb>
         </div>
         <h3>博客管理系统</h3>
+        <div class="create-article-btn" @click="writeBlog">
+            <i class="el-icon-edit" style="color:#409EFF;font-size:1.8rem;"></i>
+            <span>写博客</span>
+        </div>
         <div class="user-box">
             <el-dropdown>
                 <span class="el-dropdown-link">
@@ -46,6 +50,9 @@ export default {
         showAdminMenu(){
             this.showAsideMenu = !this.showAsideMenu;
             this.$bus.$emit('showAdminMenu',this.showAsideMenu)
+        },
+        writeBlog(){
+            this.$router.push({name:'editArticle'})
         }    
     }
 }
@@ -78,7 +85,17 @@ export default {
     .link-box{
         display: inline-block;
     }
-
+    .create-article-btn{
+        cursor: pointer;
+        font-size: 1.6rem; 
+        span{
+            color: #333;
+        }
+        span:hover{
+            color:#409EFF;
+        }
+        margin-right: 50px;    
+    }
     h3{
         flex: 1;
         height: 60px;

@@ -56,17 +56,6 @@ export default new Router({
     },
     {
       /**
-       * 编辑文章
-       */
-      path: '/editArticle',
-      name: 'editArticle',
-      component: editArticle,
-      meta: {
-        title: '编辑文章'
-      }
-    },
-    {
-      /**
        * 登录
        */
       path: '/login',
@@ -74,6 +63,17 @@ export default new Router({
       component: login,
       meta: {
         title: '登录'
+      }
+    },
+    {
+      /**
+       * 编辑文章
+       */
+      path: '/admin/editArticle',
+      name: 'editArticle',
+      component: editArticle,
+      meta: {
+        title: '编辑文章'
       }
     },
     {
@@ -100,22 +100,34 @@ export default new Router({
           path:'manageMenu',
           name:'manageMenu',
           component:manageMenu,
+          meta: {
+            title: '菜单管理'
+          }
         },
         {
           path:'manageArticle',
           name:'manageArticle',
           component:manageArticle,
+          meta: {
+            title: '文章管理'
+          }
         },
         {
           path:'user/avator',
           name:'avator',
-          component:avator
+          component:avator,
+          meta: {
+            title: '更换头像'
+          }
         },
         {
           path:'user/changePwd',
           name:'changePwd',
-          component:changePwd
-        } 
+          component:changePwd,
+          meta: {
+            title: '修改密码'
+          }
+        }
       ],
       meta: {
         title: '博客管理系统'
