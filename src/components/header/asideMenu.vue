@@ -13,12 +13,12 @@
                         text-color="#fff"
                         active-text-color="#ffd04b">
                         <div v-for="(item,index) in menuList" :key="index">
-                            <template v-if="item.childMenu">
+                            <template v-if="item.children">
                                 <el-submenu :index="index+1+''">
                                     <template slot="title">
                                         <span>{{item.menuName}}</span>
                                     </template>
-                                    <el-menu-item v-for="(child,idx) in item.childMenu" :index="index+'-'+idx" :key="idx">{{child.menuName}}</el-menu-item>
+                                    <el-menu-item v-for="(child,idx) in item.children" :index="index+'-'+idx" :key="idx">{{child.menuName}}</el-menu-item>
                                 </el-submenu>                            
                             </template>
                             <template v-else>

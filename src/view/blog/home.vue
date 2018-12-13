@@ -50,6 +50,7 @@ export default {
         // 获取菜单列表
        async getMenuList(){
           var menuData = await $api.findAllMenu();
+          console.log(menuData)
           if(menuData.code=='0' && menuData.data){
               this.menuList = menuData.data
           }

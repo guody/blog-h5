@@ -71,7 +71,7 @@
           paste_auto_cleanup_on_paste: false,
 
           // CONFIG: Font
-          fontsize_formats: '10px 11px 12px 14px 16px 18px 20px 24px 26px 28px 30px 32px 34px',
+          fontsize_formats: '10px 11px 12px 14px 16px 18px 20px 24px 26px 28px 30px',
 
           // CONFIG: StyleSelect
           style_formats: [
