@@ -13,10 +13,23 @@
                         <div class="pop-item">
                             <div class="pop-item-title">文章分类</div>
                             <el-cascader
-                                :options="options"
-                                v-model="selectedOptions"
+                                :options="casecadeOptions"
+                                v-model="ArticleCategory"
                                 @change="handleChange">
                             </el-cascader>
+                        </div>
+                        <div class="pop-item">
+                            <div class="pop-item-title">文章类型</div>
+                            <template>
+                                <el-select @change="typeChange" v-model="articleType" placeholder="请选择">
+                                    <el-option
+                                    v-for="item in typeOptions"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value">
+                                    </el-option>
+                                </el-select>
+                            </template>
                         </div>
                         <div class="pop-item">
                             <div class="pop-item-title">标签</div>
@@ -71,8 +84,20 @@ export default {
             },
             titleContent:'',  // 文章标题
             visible:false,   //发布弹框显示
-            selectedOptions:'',  // 文章分类
-            articleTag:''  // 文章标签
+            ArticleCategory:'',  // 文章分类
+            articleTag:'',  // 文章标签
+            articleType:'',
+            casecadeOptions:'',
+            typeOptions:[
+                {
+                    value: '0',
+                    label: '原创'
+                },
+                {
+                    value: '1',
+                    label: '转载'
+                }
+            ]
         }
     },
     components:{
@@ -84,6 +109,9 @@ export default {
     methods:{
         handleChange(value) {
             console.log(value);
+        },
+        typeChange(value) {
+            console.log(value);
         }
     }   
 
@@ -93,15 +121,15 @@ export default {
 .el-popover{
     padding: 20px;
     .pop-title{
-        font-size: 1.8rem;
+        font-size: 1.6rem;
         color: #888;
         font-weight: 600;
     }
     .pop-item{
-        margin-top:20px;
+        margin-top:15px;
     }
     .pop-item-title{
-        font-size: 1.6rem;
+        font-size: 1.4rem;
         color: #909090;    
         margin-bottom:5px;     
     }

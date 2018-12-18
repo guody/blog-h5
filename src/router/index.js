@@ -113,15 +113,15 @@ export default new Router({
           }
         },
         {
-          path:'user/avator',
+          path:'userInfo/avator',
           name:'avator',
           component:avator,
           meta: {
-            title: '更换头像'
+            title: '修改头像'
           }
         },
         {
-          path:'user/changePwd',
+          path:'userInfo/changePwd',
           name:'changePwd',
           component:changePwd,
           meta: {

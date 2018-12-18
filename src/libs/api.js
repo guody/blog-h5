@@ -11,10 +11,24 @@ export default {
     findAllMenu(param){
         return http.get('/pub/findallmenu',param)
     },
-    // 添加文章根目录
+    // 添加文章菜单
     insertMenu(param){
         return http.post('/priv/insertMenu',param)
     },
+    // 删除文章菜单
+    deleteMenu(param){
+        return http.post('/priv/deleteMenu',param)
+    },
+
+    // 添加文章分类
+    insertCategory(param){
+        return http.post('/priv/insertCategory',param)
+    },
+    // 删除文章分类
+    deleteCategory(param){
+        return http.post('/priv/deleteCategory',param)
+    },
+
     //用户登录
     login(param){
         return http.post('/pub/login',param)

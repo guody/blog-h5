@@ -1,8 +1,11 @@
 <template>
     <div class="menu-box">
-        <el-button @click="dialogFormVisible = true" type="primary" size="small" style="margin-bottom:40px;" icon="el-icon-plus">添加一级菜单</el-button>
-        <el-dialog title="添加菜单" :visible.sync="dialogFormVisible" width="35%">
-            <el-form :model="form" status-icon :rules="rules" >
+        <el-button @click="addMenu()" type="primary" size="small" style="margin-bottom:40px;" icon="el-icon-plus">添加一级菜单</el-button>
+        <el-dialog title="添加菜单" :visible.sync="dialogFormVisible" :before-close="closeDialog" width="35%">
+            <el-form :model="form" status-icon :rules="rules" ref="menuForm">
+                <el-form-item label="上级菜单" :label-width="formLabelWidth" prop="subMenuName">
+                    <el-input :disabled="true" v-model="form.subMenuName" autocomplete="off"></el-input>
+                </el-form-item>
                 <el-form-item label="菜单名称" :label-width="formLabelWidth" prop="menuName">
                     <el-input v-model="form.menuName" autocomplete="off"></el-input>
                 </el-form-item>
@@ -14,8 +17,8 @@
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click="dialogFormVisible = false">取 消</el-button>
-                <el-button type="primary" @click="addMenu">确 定</el-button>
+                <el-button @click="cancelDialog('menuForm')">取 消</el-button>
+                <el-button type="primary" @click="addConfirm('menuForm')">确 定</el-button>
             </div>
         </el-dialog>
         <div class="table-box">
@@ -32,7 +35,7 @@
                                 <template slot-scope="scope">{{scope.row.id}}</template>
                             </el-table-column>            
                             <el-table-column
-                                width="150">
+                                width="120">
                                 <template slot-scope="scope">{{scope.row.menuName}}</template>
                             </el-table-column>
                             <el-table-column
@@ -40,7 +43,7 @@
                                 <template slot-scope="scope">{{scope.row.sortNo}}</template>
                             </el-table-column>
                             <el-table-column
-                                width="150">
+                                width="120">
                                 <template slot-scope="scope">{{scope.row.routeName}}</template>
                             </el-table-column>           
                             <el-table-column>
@@ -49,17 +52,12 @@
                                     size="small"
                                     type="warning"
                                     plain
-                                    @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-                                    <el-button
-                                    size="small"
-                                    type="primary"
-                                    plain
-                                    @click="handleEdit(scope.$index, scope.row)">新增</el-button>
+                                    @click="editMenu(scope.row,'02')">编辑</el-button>
                                     <el-button
                                     size="small"
                                     type="danger"
                                     plain
-                                    @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                                    @click="deleteMenu(scope.row.id,'02')">删除</el-button>
                                 </template>
                             </el-table-column>                        
                         </el-table>
@@ -72,7 +70,7 @@
                 </el-table-column>            
                 <el-table-column
                     label="菜单名称"
-                    width="150">
+                    width="120">
                     <template slot-scope="scope">{{scope.row.menuName}}</template>
                 </el-table-column>
                 <el-table-column
@@ -82,7 +80,7 @@
                 </el-table-column>
                 <el-table-column
                     label="路由名称"
-                    width="150">
+                    width="120">
                     <template slot-scope="scope">{{scope.row.routeName}}</template>
                 </el-table-column>           
                 <el-table-column
@@ -92,17 +90,17 @@
                         size="small"
                         type="warning"
                         plain
-                        @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                        @click="editMenu(scope.row,'01')">编辑</el-button>
                         <el-button
                         size="small"
                         type="primary"
                         plain
-                        @click="handleEdit(scope.$index, scope.row)">新增</el-button>
+                        @click="addCategory(scope.row)">新增</el-button>
                         <el-button
                         size="small"
                         type="danger"
                         plain
-                        @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                        @click="deleteMenu(scope.row.id,'01')">删除</el-button>
                 </template>
                 </el-table-column>
             </el-table>    
@@ -118,10 +116,14 @@ export default {
             loading:true,
             dialogFormVisible:false,
             form: {
+                subMenuId:'',
+                subMenuName:'',
                 menuName: '',
                 sortNo: '',
-                routeName: ''
+                routeName: '',
+                menuId:'' 
             },
+            type:'', // 01-菜单； 02-分类
             rules:{
                 menuName:[
                     { required: true, message: '请输入菜单名称', trigger: 'blur' }
@@ -155,23 +157,105 @@ export default {
               this.menuList = menuData.data 
           }
         },
-        // 添加文章目录
-        async addMenu(){
-            // 弹窗消失
-            this.dialogFormVisible = false;
-            // 提交数据
-            var result = await $api.insertMenu(this.form);
-            if(result.code=='0'){
-                this.$message({
-                    message: '目录添加成功',
-                    type: 'success',
-                    duration:2000,
-                    center:true
-                });         
-                this.getMenuList();    
-            }
+        //添加一级菜单
+        addMenu(){
+            this.dialogFormVisible = true;
+            this.type = '01';
+            this.form.subMenuName= '根目录'
+            this.addConfirm()
+        },
+        //添加菜单
+        addCategory(row){
+            this.dialogFormVisible = true;
+            this.type = '02';
+            this.form.subMenuId= row.id
+            this.form.subMenuName= row.menuName
+            this.addConfirm()
+        },
+        // 确认添加文章菜单、分类  type---01:菜单；02：分类
+        addConfirm(formName){
+            let that = this;
+            //验证校验规则是否通过
+            this.$refs[formName].validate(async (valid) => {
+                if (valid) {
+                    let result;
+                    if(this.type=='01'){
+                        result = await $api.insertMenu(this.form);
+                    }else{
+                        result = await $api.insertCategory(this.form);
+                    }
+                    if(result.code=='0'){
+                        this.$message({
+                            message: '菜单添加成功',
+                            type: 'success',
+                            duration:2000,
+                            center:true
+                        }); 
+                        // 弹窗消失
+                        that.dialogFormVisible = false; 
+                        // 重置表单
+                        this.$refs[formName].resetFields();       
+                        this.getMenuList();    
+                    }
+                } else {
+                    return false;
+                }
+            });
 
-        }      
+        },
+        // 编辑菜单
+        editMenu(row,type){
+            this.dialogFormVisible = true;
+            if(type == '01'){
+                this.form.subMenuName= '根目录'
+            }else{
+                this.form.subMenuName= '根目录'
+            }
+            this.form.menuId = row.id;
+            this.form.menuName = row.menuName; 
+            this.form.routeName = row.routeName
+            this.form.sortNo = row.sortNo;
+        },
+        // 删除文章菜单
+        deleteMenu(menuId,type){
+            let msg = '';
+            if(type == '01'){
+                msg = '此操作将永久删除该菜单及其所有分类, 是否继续?'
+            }else {
+                msg = '此操作将永久删除该文章分类, 是否继续?'
+            }
+            this.$confirm(msg, '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(async () => {
+                let result;
+                if(type == '01'){
+                    result = await $api.deleteMenu({'menuId':menuId});
+                }else {
+                    result = await $api.deleteCategory({'id':menuId});
+                }
+                if(result.code=='0'){
+                    this.getMenuList();
+                    this.$message({
+                        type: 'success',
+                        message: '删除成功!'
+                    });                   
+                }
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消删除'
+                });          
+            });            
+        },
+        cancelDialog(formName){
+            this.dialogFormVisible = false;
+            this.$refs[formName].resetFields();  
+        },
+        closeDialog(){
+            this.$refs['menuForm'].resetFields();   
+        }
     }
 }
 </script>

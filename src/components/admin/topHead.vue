@@ -22,8 +22,8 @@
                     <span class="user-down"></span>
                 </span>
                 <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item>上传头像</el-dropdown-item>
-                    <el-dropdown-item>修改密码</el-dropdown-item>
+                    <el-dropdown-item>用户信息</el-dropdown-item>
+                    <el-dropdown-item>gitHub</el-dropdown-item>
                     <el-dropdown-item>退出</el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>

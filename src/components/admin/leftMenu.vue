@@ -17,7 +17,7 @@
                 </el-submenu>                            
             </template>
             <template v-else>
-                <el-menu-item @click="skipPage(item)" :index="item.routeName">
+                <el-menu-item :disabled="item.id=='5'" @click="skipPage(item)" :index="item.routeName">
                     <i :class="item.icon"></i>
                     <span slot="title">{{item.menuName}}</span>
                 </el-menu-item>                            
