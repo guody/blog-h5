@@ -29,6 +29,14 @@ export default {
         return http.post('/priv/deleteCategory',param)
     },
 
+    // 编辑文章菜单
+    editMenu(param){
+        return http.post('/priv/editMenu',param)
+    },
+    // 编辑文章分类
+    editCategory(param){
+        return http.post('/priv/editCategory',param)
+    },
     //用户登录
     login(param){
         return http.post('/pub/login',param)

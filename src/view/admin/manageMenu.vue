@@ -3,9 +3,6 @@
         <el-button @click="addMenu()" type="primary" size="small" style="margin-bottom:40px;" icon="el-icon-plus">添加一级菜单</el-button>
         <el-dialog title="添加菜单" :visible.sync="dialogFormVisible" :before-close="closeDialog" width="35%">
             <el-form :model="form" status-icon :rules="rules" ref="menuForm">
-                <el-form-item label="上级菜单" :label-width="formLabelWidth" prop="subMenuName">
-                    <el-input :disabled="true" v-model="form.subMenuName" autocomplete="off"></el-input>
-                </el-form-item>
                 <el-form-item label="菜单名称" :label-width="formLabelWidth" prop="menuName">
                     <el-input v-model="form.menuName" autocomplete="off"></el-input>
                 </el-form-item>
@@ -52,7 +49,7 @@
                                     size="small"
                                     type="warning"
                                     plain
-                                    @click="editMenu(scope.row,'02')">编辑</el-button>
+                                    @click="editCategory(scope.row,'02')">编辑</el-button>
                                     <el-button
                                     size="small"
                                     type="danger"
@@ -117,13 +114,13 @@ export default {
             dialogFormVisible:false,
             form: {
                 subMenuId:'',
-                subMenuName:'',
                 menuName: '',
                 sortNo: '',
                 routeName: '',
                 menuId:'' 
             },
             type:'', // 01-菜单； 02-分类
+            operate:'',
             rules:{
                 menuName:[
                     { required: true, message: '请输入菜单名称', trigger: 'blur' }
@@ -160,61 +157,86 @@ export default {
         //添加一级菜单
         addMenu(){
             this.dialogFormVisible = true;
+            this.operate = '01'
             this.type = '01';
-            this.form.subMenuName= '根目录'
-            this.addConfirm()
         },
         //添加菜单
         addCategory(row){
             this.dialogFormVisible = true;
+            this.operate = '01'
             this.type = '02';
             this.form.subMenuId= row.id
-            this.form.subMenuName= row.menuName
-            this.addConfirm()
-        },
-        // 确认添加文章菜单、分类  type---01:菜单；02：分类
-        addConfirm(formName){
-            let that = this;
-            //验证校验规则是否通过
-            this.$refs[formName].validate(async (valid) => {
-                if (valid) {
-                    let result;
-                    if(this.type=='01'){
-                        result = await $api.insertMenu(this.form);
-                    }else{
-                        result = await $api.insertCategory(this.form);
-                    }
-                    if(result.code=='0'){
-                        this.$message({
-                            message: '菜单添加成功',
-                            type: 'success',
-                            duration:2000,
-                            center:true
-                        }); 
-                        // 弹窗消失
-                        that.dialogFormVisible = false; 
-                        // 重置表单
-                        this.$refs[formName].resetFields();       
-                        this.getMenuList();    
-                    }
-                } else {
-                    return false;
-                }
-            });
-
         },
         // 编辑菜单
-        editMenu(row,type){
+        editMenu(row){
+            this.type = '01';
+            this.editBtn(row);
+        },
+        // 编辑分类
+        editCategory(row){
+            this.type = '02';
+            this.editBtn(row);
+        },
+        editBtn(row){
             this.dialogFormVisible = true;
-            if(type == '01'){
-                this.form.subMenuName= '根目录'
-            }else{
-                this.form.subMenuName= '根目录'
-            }
+            this.operate = '02'
             this.form.menuId = row.id;
             this.form.menuName = row.menuName; 
             this.form.routeName = row.routeName
             this.form.sortNo = row.sortNo;
+        },
+        // 确认添加、编辑文章菜单、分类  type---01:菜单；02：分类    operate:01 -- 新建    02 -- 更新
+        async addConfirm(formName){
+            let that = this;
+            if(this.operate == '01'){
+                //验证校验规则是否通过
+                this.$refs[formName].validate(async (valid) => {
+                    if (valid) {
+                        let result;
+                        if(this.type=='01'){
+                            result = await $api.insertMenu(this.form);
+                        }else{
+                            result = await $api.insertCategory(this.form);
+                        }
+                        if(result.code=='0'){
+                            this.$message({
+                                message: '菜单添加成功',
+                                type: 'success',
+                                duration:2000,
+                                center:true
+                            }); 
+                            // 弹窗消失
+                            that.dialogFormVisible = false; 
+                            // 重置表单
+                            this.$refs[formName].resetFields();       
+                            this.getMenuList();    
+                        }
+                    } else {
+                        return false;
+                    }
+                });
+            }else{
+                // 编辑菜单信息
+                let result;
+                if(this.type=='01'){
+                    result = await $api.editMenu(this.form);
+                }else{
+                    result = await $api.editCategory(this.form);
+                }               
+                if(result.code=='0'){
+                    this.$message({
+                        message: '修改成功',
+                        type: 'success',
+                        duration:2000,
+                        center:true
+                    }); 
+                    // 弹窗消失
+                    that.dialogFormVisible = false; 
+                    // 重置表单
+                    this.$refs[formName].resetFields();       
+                    this.getMenuList();    
+                }
+            }
         },
         // 删除文章菜单
         deleteMenu(menuId,type){
@@ -253,8 +275,9 @@ export default {
             this.dialogFormVisible = false;
             this.$refs[formName].resetFields();  
         },
-        closeDialog(){
-            this.$refs['menuForm'].resetFields();   
+        closeDialog(done){
+            this.$refs['menuForm'].resetFields();
+            done()
         }
     }
 }
