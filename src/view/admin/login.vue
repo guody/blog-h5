@@ -40,12 +40,15 @@
       submitForm(formName) {
         this.$refs[formName].validate(async (valid) => {
           if (valid) {
-            console.log(this.ruleForm)
             var loginResult = await $api.login(this.ruleForm);
-            if(loginResult.code == '0' && loginResult.data.code == '0000'){
+            if(loginResult.code == '0'){
               alert('登录成功')
-            }else{
-              alert('登录失败')
+              // 将用户信息存储在vuex
+
+
+              // 跳转到admin首页
+
+
             }
           } else {
             console.log('error submit!!');

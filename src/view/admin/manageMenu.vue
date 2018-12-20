@@ -273,10 +273,12 @@ export default {
         },
         cancelDialog(formName){
             this.dialogFormVisible = false;
-            this.$refs[formName].resetFields();  
+            this.form = {}
+            // this.$refs[formName].resetFields();  
         },
         closeDialog(done){
-            this.$refs['menuForm'].resetFields();
+            // this.$refs['menuForm'].resetFields();
+            this.form = {}
             done()
         }
     }

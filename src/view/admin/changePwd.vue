@@ -1,15 +1,18 @@
 <template>
     <div class="pwd-box">
-        <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
+        <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
             <el-form-item label="新密码" prop="pass">
-                <el-input type="password" v-model="ruleForm2.pass" autocomplete="off"></el-input>
+                <el-input :type="inputType" v-model="ruleForm.pass" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item label="确认密码" prop="checkPass">
-                <el-input type="password" v-model="ruleForm2.checkPass" autocomplete="off"></el-input>
+                <el-input :type="inputType" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item>
-                <el-button @click="resetForm('ruleForm2')">重置</el-button>
-                <el-button type="primary" @click="submitForm('ruleForm2')">提交</el-button>
+                <div class="show-pwd">
+                    <el-checkbox @change="showPwd" v-model="checked">显示密码</el-checkbox>
+                </div>
+                <el-button @click="resetForm('ruleForm')">重置</el-button>
+                <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
             </el-form-item>
         </el-form>       
     </div>
@@ -21,8 +24,8 @@
         if (value === '') {
           callback(new Error('请输入密码'));
         } else {
-          if (this.ruleForm2.checkPass !== '') {
-            this.$refs.ruleForm2.validateField('checkPass');
+          if (this.ruleForm.checkPass !== '') {
+            this.$refs.ruleForm.validateField('checkPass');
           }
           callback();
         }
@@ -30,19 +33,20 @@
       var validatePass2 = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('请再次输入密码'));
-        } else if (value !== this.ruleForm2.pass) {
+        } else if (value !== this.ruleForm.pass) {
           callback(new Error('两次输入密码不一致!'));
         } else {
           callback();
         }
       };
       return {
-        ruleForm2: {
+        checked: false,
+        inputType:'password',
+        ruleForm: {
           pass: '',
-          checkPass: '',
-          age: ''
+          checkPass: ''
         },
-        rules2: {
+        rules: {
           pass: [
             { validator: validatePass, trigger: 'blur' }
           ],
@@ -54,9 +58,19 @@
     },
     methods: {
       submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
+        this.$refs[formName].validate(async (valid) => {
           if (valid) {
-            alert('submit!');
+            var result = await $api.changePwd({userId:'',password:this.ruleForm.checkPass});
+            if(result.code=='0'){
+                this.$message({
+                    message: '密码修改成功',
+                    type: 'success',
+                    duration:2000,
+                    center:true
+                }); 
+                // 重置表单
+                this.$refs[formName].resetFields();         
+            }
           } else {
             console.log('error submit!!');
             return false;
@@ -65,6 +79,15 @@
       },
       resetForm(formName) {
         this.$refs[formName].resetFields();
+      },
+      // 显示/隐藏密码
+      showPwd(){
+          if(this.checked){
+              this.inputType = 'text';
+          }else{
+              this.inputType = 'password';
+          }
+          
       }
     }
   }
@@ -74,5 +97,11 @@
         width: 40%;
         margin-left: 10%;
         margin-top: 5%; 
+    }
+    .show-pwd{
+        margin: 10px 0;
+    }
+    .el-button{
+        width: 120px;
     }
 </style>

@@ -41,6 +41,10 @@ export default {
     login(param){
         return http.post('/pub/login',param)
     },
+   //用户登录
+   changePwd(param){
+        return http.post('/priv/changePwd',param)
+    },
 
 
     /** 

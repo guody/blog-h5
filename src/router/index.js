@@ -30,7 +30,7 @@ const avator = resolve => require.ensure([], () => resolve(require('../view/admi
 // 修改密码
 const changePwd = resolve => require.ensure([], () => resolve(require('../view/admin/changePwd.vue')), 'changePwd');
 
-export default new Router({
+const $router =  new Router({
   routes: [
     {
       /**
@@ -135,3 +135,11 @@ export default new Router({
     }          
   ]
 })
+
+$router.beforeEach((to, from, next) => {
+  //跳转前验证登录状态
+
+  next()
+})
+
+export default $router
