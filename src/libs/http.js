@@ -31,7 +31,7 @@ axios.interceptors.response.use(response => {
     loadFlag.close()
   }, 0)
   // 提示程序异常
-  if(response.data.code != '0'){
+  if(response.data.code != '00'){
     Message({
       message: response.data.message,
       type: 'error',

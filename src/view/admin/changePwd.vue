@@ -61,7 +61,7 @@
         this.$refs[formName].validate(async (valid) => {
           if (valid) {
             var result = await $api.changePwd({userId:'',password:this.ruleForm.checkPass});
-            if(result.code=='0'){
+            if(result.code==='00'){
                 this.$message({
                     message: '密码修改成功',
                     type: 'success',

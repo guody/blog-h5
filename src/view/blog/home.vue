@@ -51,7 +51,7 @@ export default {
        async getMenuList(){
           var menuData = await $api.findAllMenu();
           console.log(menuData)
-          if(menuData.code=='0' && menuData.data){
+          if(menuData.code==='00' && menuData.data){
               this.menuList = menuData.data
           }
         },

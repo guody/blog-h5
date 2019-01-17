@@ -41,7 +41,7 @@
         this.$refs[formName].validate(async (valid) => {
           if (valid) {
             var loginResult = await $api.login(this.ruleForm);
-            if(loginResult.code == '0'){
+            if(loginResult.code === '00'){
               alert('登录成功')
               // 将用户信息存储在vuex
 

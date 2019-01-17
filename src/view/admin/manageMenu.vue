@@ -149,7 +149,7 @@ export default {
         // 获取文章菜单
        async getMenuList(){
           var menuData = await $api.findAllMenu();
-          if(menuData.code=='0' && menuData.data){
+          if(menuData.code==='00' && menuData.data){
               console.log(menuData)
               this.menuList = menuData.data 
           }
@@ -198,7 +198,7 @@ export default {
                         }else{
                             result = await $api.insertCategory(this.form);
                         }
-                        if(result.code=='0'){
+                        if(result.code==='00'){
                             this.$message({
                                 message: '菜单添加成功',
                                 type: 'success',
@@ -223,7 +223,7 @@ export default {
                 }else{
                     result = await $api.editCategory(this.form);
                 }               
-                if(result.code=='0'){
+                if(result.code==='00'){
                     this.$message({
                         message: '修改成功',
                         type: 'success',
@@ -257,7 +257,7 @@ export default {
                 }else {
                     result = await $api.deleteCategory({'id':menuId});
                 }
-                if(result.code=='0'){
+                if(result.code==='00'){
                     this.getMenuList();
                     this.$message({
                         type: 'success',

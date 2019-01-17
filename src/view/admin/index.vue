@@ -27,7 +27,7 @@ export default {
         async getAdminMenuList(){
             let menuData =await $api.findAdminMenu()
             console.log(menuData)
-            if(menuData.code=='0' && menuData.data){
+            if(menuData.code==='00' && menuData.data){
                 this.menuList = menuData.data;
             }
         }

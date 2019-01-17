@@ -109,7 +109,7 @@ export default {
         // 获取菜单列表
        async getMenuList(){
           var menuData = await $api.findAllMenu();
-          if(menuData.code=='0' && menuData.data){
+          if(menuData.code==='00' && menuData.data){
               this.menuList = menuData.data
           }
         },
